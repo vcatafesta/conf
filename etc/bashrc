@@ -2,6 +2,10 @@
 
 #wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
 eval $(dircolors -b $HOME/.dircolors)
+shopt -s cdspell
+shopt -s dotglob        # ls *bash*
+shopt -s extglob        # ls file?(name); ls file*(name); ls file+(name); ls file+(name|utils); ls file@(name|utils)
+#shopt -s nullglob			# suppress error message of a command
 
 ulimit -n 32767
 #source /lib/lsb/init-functions
@@ -12,7 +16,7 @@ ulimit -n 32767
 #export TZ=America/Porto_Velho
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin"
+export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 
 #harbour
@@ -391,9 +395,31 @@ function toupper()
 
 function tolower()
 {
-    declare -l TOLOWER=${@}
-    echo ${TOLOWER}
+#	declare -l TOLOWER=${@}
+#	echo ${TOLOWER}
+	for arquivo in $@
+	do
+		echo $arquivo
+		mv "$arquivo" "${arquivo,,}"
+	done
 }
+
+#!/usr/bin/env bash
+# mvlower.sh
+
+mvlower() {
+  local filepath
+  local dirpath
+  local filename
+
+  for filepath in "$@"; do
+    # OBS: temos que preservar o path do diretório!
+    dirpath=$(dirname "$filepath")
+    filename=$(basename "$filepath")
+    mv "$filepath" "${dirpath}/${filename,,}"
+  done
+}
+#mvlower "$@"
 
 function now()
 {
@@ -1552,12 +1578,6 @@ function toupper()
     echo ${TOUPPER}
 }
 
-function tolower()
-{
-    declare -l TOLOWER=${@}
-    echo ${TOLOWER}
-}
-
 function now()
 {
     printf "%(%m-%d-%Y %H:%M:%S)T\n" $(date +%s)
@@ -1639,12 +1659,19 @@ function removeoldpkgarch()
 		local nfiles=0
 		local cOldDir=$PWD
 		cd /var/cache/pacman/pkg
-		AllFilesPackages=$(ls -1 *.{zst,xz})
 
-		log_wait_msg "Aguarde, trabalhando nisso..."
+		shopt -s nullglob       # enable suppress error message of a command
+		if [ $# -lt 1 ]; then
+			AllFilesPackages=$(ls -1 *.{zst,xz})
+		else
+			AllFilesPackages=$(ls -1 $1*.{zst,xz})
+		fi
+		shopt -u nullglob       # disable suppress error message of a command
+
+		log_wait_msg "wait, working on it..."
 		for pkgInAll in $AllFilesPackages
 		do
-			pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.pkg.tar.\|zst\|xz//g'|sed 's/-any.pkg.tar.\|zst\|xz//g'|sed 's/.chi.zst//g'|sed 's/1://g'|sed 's/2://g')
+			pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
 			FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
 			FilteredPackages=$FilteredPackages"-"
 			AllFilteredPackages=$(ls -1 $FilteredPackages*.{zst,xz} 2> /dev/null)
@@ -1682,36 +1709,49 @@ function removeoldpkgarch()
 
 function removeoldpkgchili()
 {
+	local cdir=
 	cd /github/ChiliOS/packages/
 	for cdir in {a..z}
 	do
 		echo -e "${white}Verifying packages in ${green}$cdir"
-		pushd $cdir >/dev/null 2>&1
 		local nfiles=0
 		local cOldDir=$PWD
-		AllFilesPackages=$(ls -1 *.zst)
+		local AllFilesPackages=
+		local pkg=
+		local pkgInAll=
+		local FilteredPackages=
+		local AllFilteredPackages=
 
-		log_wait_msg "Aguarde, trabalhando nisso..."
+		if [ $# -lt 1 ]; then
+			pushd $cdir >/dev/null 2>&1
+			AllFilesPackages=$(ls -1 *.{zst,xz})
+		else
+			cdir=${1:0:1}
+			pushd $cdir >/dev/null 2>&1
+			AllFilesPackages=$(ls -1 $1*.{zst,xz} | grep $1)
+		fi
+
+		log_wait_msg "wait, working on it..."
 		for pkgInAll in $AllFilesPackages
 		do
-			pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.pkg.tar.\|zst\|xz//g'|sed 's/-any.pkg.tar.\|zst\|xz//g'|sed 's/.chi.zst//g'|sed 's/1://g'|sed 's/2://g')
+			pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
 			FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
 			FilteredPackages=$FilteredPackages"-"
 			AllFilteredPackages=$(ls -1 $FilteredPackages*.{zst,xz} 2> /dev/null)
-#			AllFilteredPackages=$(ls -1 $FilteredPackages*.zst 2> /dev/null)
-#			AllFilteredPackages="$AllFilteredPackages $(ls -1 $FilteredPackages*.xz 2> /dev/null)"
 			nfiles=0
+			y=
+			pkg=
 
 			for y in ${AllFilteredPackages[*]}
 			do
 				((nfiles++))
 			done
 
-#			echo -e "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
 			log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
-			if [[ $nfiles > 1 ]]; then
+			if [[ $nfiles -gt 1 ]]; then
 				for pkg in $AllFilteredPackages
 				do
+
 					if [[ "$(vercmp $pkgInAll $pkg)" -lt 0 ]]; then
 						maxcol; replicate "=" $?
 						log_info_msg "Removing ${red}OLD ${reset}package ${yellow}$pkgInAll"
@@ -1727,6 +1767,9 @@ function removeoldpkgchili()
 			fi
 		done
 		popd >/dev/null 2>&1
+		if [ $# -eq 1 ]; then
+			break
+		fi
 	done
 }
 
