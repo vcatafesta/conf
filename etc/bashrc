@@ -16,7 +16,7 @@ ulimit -n 32767
 #export TZ=America/Porto_Velho
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin"
+export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 
 #harbour
