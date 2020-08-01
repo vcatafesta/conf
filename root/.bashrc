@@ -924,3 +924,7 @@ fi
 source /usr/share/doc/pkgfile/command-not-found.bash
 eval $(dircolors -b $HOME/.dircolors)
 
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/share/powerline/bindings/bash/powerline.sh
