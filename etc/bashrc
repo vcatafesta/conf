@@ -1115,14 +1115,14 @@ net()
 
 function gpull()
 {
-	msg2 "Iniciando git pull"
+	msg2 "${blue}Iniciando git pull"
 	sudo git pull
 	evaluate_retval
 }
 
 function gpush()
 {
-	msg2 "${green}Iniciando git push\n"
+	msg2 "${red}Iniciando git push\n"
 	sudo git add *
 	sudo git commit -m "upgrade"
 	sudo git push
