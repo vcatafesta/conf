@@ -1124,6 +1124,7 @@ function gpull()
 function gpush()
 {
 	msg2 "${red}Iniciando git push\n"
+	sudo git config credential.helper store
 	sudo git add *
 	sudo git commit -m "upgrade"
 	sudo git push
