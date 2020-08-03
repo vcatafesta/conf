@@ -17,7 +17,10 @@ ulimit -n 32767
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
 export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin"
+export CDPATH=".:..:~"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
+export VISUAL=nano
+export EDITOR=nano
 
 #harbour
 #export HB_INSTALL_PREFIX=/usr
@@ -60,7 +63,7 @@ alias v="ssh -l vcatafesta -t balcao '/home/vcatafesta/SYS/sci/sci'"
 alias backuptheme="rsync --progress -Cravzp --rsh='ssh -l root' root@10.0.0.80:/mnt/usr/share/grub/themes/ /usr/share/grub/themes/"
 alias dude="wine /root/.wine/drive_c/'Program Files'/Dude/dude &"
 alias rmake="hbmk2 -info"
-alias sci="cd /mnt/c/sci/linux/; ./sci"
+alias sci="cd /home/sci/; ./sci"
 alias sl="cd /home/vcatafesta/sci/src.linux ; ls"
 
 #alias ouvindo="netstat -anp | grep :69"
@@ -1408,7 +1411,7 @@ function MK()
                 --sysconfdir=/etc
     make
     #make check
-    #make install
+    make install DESTDIR="/github/ChiliOS/packages/core/${PWD##*/}-1"
 EOF
     chmod +x rmake
     log_success_msg2 "Feito!"
