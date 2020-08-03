@@ -1116,6 +1116,7 @@ net()
 function gpull()
 {
 	msg2 "${blue}Iniciando git pull"
+	sudo git config pull.ff only
 	sudo git pull
 	evaluate_retval
 }
