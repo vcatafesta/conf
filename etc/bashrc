@@ -1113,6 +1113,22 @@ net()
 	evaluate_retval
 }
 
+function gpull()
+{
+	log_info_msg "Iniciando git pull"
+	sudo git pull
+	evaluate_retval
+}
+
+function gpush()
+{
+	log_info_msg "Iniciando git push"
+	sudo git add *
+	sudo git commit -m "upgrade"
+	sudo git push
+	evaluate_retval
+}
+
 as_root()
 {
   if   [ $EUID = 0 ];        then $*
@@ -1905,3 +1921,4 @@ export CHOST CFLAGS CXXFLAGS
 #unset CXXFLAGS
 export PATH="$PATH:/src/depot_tools"
 #PS1="\e[32;1m\u \e[33;1m→ \e[36;1m\h \e[37;0m\w\n\e[35;1m⚡\e[m"
+
