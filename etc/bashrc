@@ -16,8 +16,8 @@ ulimit -n 32767
 #export TZ=America/Porto_Velho
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin"
-export CDPATH=".:..:~"
+export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~"
+export CDPATH="~:.:.."
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 export VISUAL=nano
 export EDITOR=nano
@@ -1115,14 +1115,14 @@ net()
 
 function gpull()
 {
-	log_info_msg "Iniciando git pull"
+	msg2 "Iniciando git pull"
 	sudo git pull
 	evaluate_retval
 }
 
 function gpush()
 {
-	log_info_msg "Iniciando git push"
+	msg2 "${green}Iniciando git push\n"
 	sudo git add *
 	sudo git commit -m "upgrade"
 	sudo git push
