@@ -17,7 +17,7 @@ ulimit -n 32767
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
 export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~"
-export CDPATH="~:.:.."
+export CDPATH=".:..:~"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 export VISUAL=nano
 export EDITOR=nano
@@ -1115,20 +1115,19 @@ net()
 
 function gpull()
 {
-	msg2 "${blue}Iniciando git pull"
+	log_wait_msg "${blue}Iniciando git pull ${reset}"
+	sudo git config credential.helper store
 	sudo git config pull.ff only
 	sudo git pull
-	evaluate_retval
 }
 
 function gpush()
 {
-	msg2 "${red}Iniciando git push\n"
+	log_wait_msg "${red}Iniciando git push ${reset}"
 	sudo git config credential.helper store
 	sudo git add *
 	sudo git commit -m "upgrade"
 	sudo git push
-	evaluate_retval
 }
 
 as_root()
@@ -1793,6 +1792,8 @@ function removeoldpkgchili()
 		fi
 	done
 }
+
+export -f removeoldpkgchili
 
 function limpa_tar_zst()
 {
