@@ -1,0 +1,12 @@
+./callbacks.go
+./clean.go
+./cmd.go
+./config.go
+./download.go
+./exec.go
+./install.go
+./main.go
+./print.go
+./query.go
+./upgrade.go
+./vcs.go

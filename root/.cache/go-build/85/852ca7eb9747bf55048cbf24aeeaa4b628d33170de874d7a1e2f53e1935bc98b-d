@@ -1,0 +1,6 @@
+./color.go
+./convert.go
+./print.go
+./test_text.go
+./text.go
+./time.go

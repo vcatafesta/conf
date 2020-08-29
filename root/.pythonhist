@@ -1,0 +1,60 @@
+import o
+uit
+quit()
+quit()
+import functions
+n = fun
+n = functions.aliquotas
+? n
+n = functions.aliquotas(10000)
+print n
+print(n)
+exit
+quit()
+import urllib
+url=urllib.parse.urlparse('https://github.com/vcatafesta')
+print(url)
+url.port
+url.fragment
+url.password
+url.netloc
+url.query
+url
+qs=urllib.parse.parse_qs(url.query)
+qs
+qs
+quit
+quit()
+import mz.py
+import mz.py
+import bs
+import bs4
+import urllib
+import re
+html_page = urllib2
+import urllib2
+import urllib2
+%pip3 install urllib2
+quit
+quit(
+quit()
+from BeautifulSoup import BeautifulSoup
+import urllib2
+import re
+html_page = urllib2.urlopen("http://www.yourwebsite.com")
+soup = BeautifulSoup(html_page)
+for link in soup.findAll('a'):
+    print link.get('href')
+            
+        
+    
+q
+quit()
+from bs4 import BeautifulSoup
+import urllib3
+import re
+html_page = urllib3.urlopen("http://localhost/packages/")
+import urllib
+urllib.request
+q
+quit()

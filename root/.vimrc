@@ -3,7 +3,7 @@ set laststatus=2
 :filetype plugin on
 :syntax enable
 set relativenumber
-set inccommand=split
+"set inccommand=split
 
 "set columns=80
 set wrapmargin=8
@@ -82,3 +82,97 @@ endif
 
 " End .vimrc
 "
+"if empty(glob('~/.vim/autoload/plug.vim'))
+"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
+
+
+" important!!
+set termguicolors
+
+" for dark version
+set background=dark
+
+" for light version
+"set background=light
+
+" the configuration options should be placed before `colorscheme edge`
+let g:edge_style = 'aura'
+let g:edge_disable_italic_comment = 1
+
+:colorscheme edge
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-github-dashboard'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '~/my-prototype-plugin'
+"Plug ‘pangloss/vim-javascript’
+"Plug ‘mxw/vim-jsx’
+"Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'itchyny/lightline.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
+Plug 'frazrepo/vim-rainbow'
+Plug 'scrooloose/syntastic'
+Plug 'vim-scripts/bash-support.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+
+
+"autocmd VimEnter *
+"\ if !empty(filter(copy(g:plugs), ‘!isdirectory(v:val.dir)’))
+"\ | PlugInstall | q
+"\ | endif
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+set noshowmode
+let g:lightline = {
+  \     'active': {
+  \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
+  \         'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding']]
+  \     }
+  \ }
+
+map <C-o> :NERDTreeToggle<CR>
+map <C-x> <esc>:q!<cr>
+let g:rainbow_active = 1
+let g:rainbow_load_separately = [
+    \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+    \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
+    \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+    \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+    \ ]
+let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
