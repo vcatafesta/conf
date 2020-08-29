@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export LC_ALL="pt_BR.utf8"
 
 #wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
 eval $(dircolors -b $HOME/.dircolors)
@@ -16,7 +17,7 @@ ulimit -n 32767
 #export TZ=America/Porto_Velho
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~"
+export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~:$HOME/.cargo/bin"
 export CDPATH=".:..:~"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 export VISUAL=nano
@@ -106,6 +107,8 @@ alias ver="lsb_release -a"
 alias cdg="cd /github/ChiliOS/packages/core/"
 alias cdb="cd /github/ChiliOS/packages/"
 alias cdp="cd /var/cache/pacman/pkg/"
+alias cdl="cd /github/sci/linux/"
+#alias pacman="pacman -S --overwrite \*" # sudo pacman -S --overwrite "*"
 #
 
 alias start=sr
@@ -223,6 +226,10 @@ LREMOVED=3
 
 # SUBROUTINES
 
+function zshdw()
+{
+   sudo git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+}
 
 function firstletter()
 {
@@ -667,6 +674,8 @@ else
 	yellow="\e[1;33m";
 fi;
 
+
+
 # Highlight the user name when logged in as root.
 if [[ "${USER}" == "root" ]]; then
 	userStyle="${red}";
@@ -785,14 +794,16 @@ function printeradd()
 
 function addprinter()
 {
-    sudo lpadmin -p LPT1    -E -v ipp://10.0.0.99/p1        -m everywhere -o print-is-shared=true -u allow:all
-    sudo lpadmin -p LPT2    -E -v ipp://10.0.0.99/p2        -m everywhere -o print-is-shared=true -u allow:all
-    sudo lpadmin -p LPT3    -E -v ipp://10.0.0.99/p3        -m everywhere -o print-is-shared=true -u allow:all
-    sudo lpadmin -p SAMSUNG -E -v ipp://10.0.0.77/ipp/print -m everywhere -o print-is-shared=true -u allow:all
-    sudo lpadmin -d LPT1
-    sudo lpadmin -p DeskJet -E -v parallel:/dev/lp0 -m drv:///sample.drv/deskjet.ppd -u allow:all
-    sudo lpadmin -p DotMatrix -E -m epson9.ppd -v serial:/dev/ttyS0?baud=9600+size=8+parity=none+flow=soft -u allow:all
-    sudo lpadmin -p PRINTERNAME -E -v smb://10.0.0.68/P1 -L "LOCATION" -o auth-info-required=negotiate -u allow:all
+	sudo cupsctl --remote-any --share-printers
+#  sudo lpadmin -p LPT1 -E -v ipp://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT1 -E -v socket://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT2 -E -v socket://10.0.0.99/p2 -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT3 -E -v socket://10.0.0.99/p3 -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p SAMSUNG2070 -E -v ipp://10.0.0.77/ipp/print -m everywhere -o print-is-shared=true -u allow:all
+#  sudo lpadmin -p DeskJet -E -v parallel:/dev/lp0 -m everywhere -u allow:all
+#  sudo lpadmin -p DotMatrix -E -m epson9.ppd -v serial:/dev/ttyS0?baud=9600+size=8+parity=none+flow=soft -u allow:all
+#  sudo lpadmin -p PRINTERNAME -E -v smb://10.0.0.68/P1 -L "LOCATION" -o auth-info-required=negotiate -u allow:all
+   sudo lpadmin -d LPT1
 }
 
 function mostra()
@@ -812,18 +823,6 @@ function cancela()
     sudo systemctl start lprng
     sudo lprm
     sudo systemctl status lprng
-}
-
-newtemp() {
-	#!/bin/bash
-	if [ $# -lt 2 ]
-	then
-		# Imprime o nome do script "$0" (isso eh bom para tornar um template de script) e como usá-lo 
-		echo "usar $0 <qtde> <ext>"
-		# Sai do script com código de erro 1 (falha)
-	else
-		for((i=1;i<=${1};i++)) ; do touch tmp-${i}.${2} ; echo -e tmp-${i}.${2}; done
-	fi
 }
 
 teste() {
@@ -878,9 +877,9 @@ delr()
 	#!/bin/sh
 	#find -name $1 | xargs rm -v
 	#!/bin/bash
-	for i in `find -name $1`
+	for i in `find -iname $1`
 	do
-        ls -f $i
+        rm -f $i
 	done
 }
 
@@ -1099,7 +1098,7 @@ lsd(){
 
 lsa(){
     echo -n ${orange}
-    ls -l|awk '/^-/ {print $9}'
+    ls -l | awk '/^-/ {print $9}'
 #   ls -la | grep -v "^d"
 }
 
@@ -1924,4 +1923,16 @@ export CHOST CFLAGS CXXFLAGS
 #unset CXXFLAGS
 export PATH="$PATH:/src/depot_tools"
 #PS1="\e[32;1m\u \e[33;1m→ \e[36;1m\h \e[37;0m\w\n\e[35;1m⚡\e[m"
+
+newtemp() {
+	#!/bin/bash
+	if [ $# -lt 2 ]
+	then
+		# Imprime o nome do script "$0" (isso eh bom para tornar um template de script) e como usá-lo 
+		echo "usar $0 <qtde> <ext>"
+		# Sai do script com código de erro 1 (falha)
+	else
+		for((i=1;i<=${1};i++)) ; do touch tmp-${i}.${2} ; echo -e tmp-${i}.${2}; done
+	fi
+}
 
