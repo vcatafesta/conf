@@ -22,9 +22,13 @@
 #         :mx#0
 #         :sh:
 
+LPT1-2|LX300:rm=localhost:rp=LPT1:
+LPT2-2|LX300:rm=localhost:rp=LPT2:
+SAMSUNG2020|SAMSUNG 2020:rm=localhost:rp=SAMSUNG2020:
+
 LPT1|Epson Lx300 em Atendimento
 :sd=/var/spool/lpd/LPT1
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p1      
 :sh
 
@@ -36,37 +40,37 @@ LPT2|Epson Lx300 em Ubuntu
 
 lx300|Epson Lx300 em Atendimento
 :sd=/var/spool/lpd/lx300      
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p1      
 :sh
 
 lx-r|Epson Lx300 em Atendimento
 :sd=/var/spool/lpd/lx-r      
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p1      
 :sh
 
 p1|Epson Lx300 em Atendimento
 :sd=/var/spool/lpd/p1
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p1      
 :sh
 
 p2|Impressora Remota      
 :sd=/var/spool/lpd/p2
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p2      
 :sh
 
 p3|Impressora Remota      
 :sd=/var/spool/lpd/p3      
-:rm=ps.sybernet.com.br      
+:rm=10.0.0.99      
 :rp=p3      
 :sh
 
 rlp|Remote printer entry         #
 :sd=/var/spool/lpd/rlp         
-:rm=ps.sybernet.com.br
+:rm=10.0.0.99
 :rp=p1         
 :mx#0         
 :sh
