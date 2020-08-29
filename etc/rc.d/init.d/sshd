@@ -31,7 +31,7 @@
 case "$1" in
     start)
         log_info_msg "Starting SSH Server..."
-        start_daemon -f /usr/bin/sshd
+        start_daemon -f /usr/sbin/sshd
         evaluate_retval
         # Also prevent ssh from being killed by out of memory conditions
         sleep 1
