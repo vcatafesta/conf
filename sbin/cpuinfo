@@ -163,8 +163,16 @@ tux(){
 #		    echo -e "${clshw}" |sed -n ${i},${i}p
         fi
 	done
+	echo -n "${red}[lscpu]$(replicate "=" $COLUMNS)${reset}"
+	lscpu
+	echo -n "${red}[lsirq]$(replicate "=" $COLUMNS)${reset}"
+	lsirq
+	echo -n "${red}[lsblk]$(replicate "=" $COLUMNS)${reset}"
+	lsblk
+	echo -n "${red}[lslogins]$(replicate "=" $COLUMNS)${reset}"
+	lslogins
 	echo -n "${red}$(replicate "=" $COLUMNS)${reset}"
-    echo
+	echo
 }
 setvar
 echo "Wait..."
