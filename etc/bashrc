@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 export LC_ALL="pt_BR.utf8"
+IFS=$' \t\n'
+SAVEIFS=$IFS
 
 #wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
 eval $(dircolors -b $HOME/.dircolors)
@@ -17,7 +19,7 @@ ulimit -n 32767
 #export TZ=America/Porto_Velho
 #export GREP_OPTIONS='-n --color=auto'
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~:$HOME/.cargo/bin"
+export PATH="/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/sbin:~:$HOME/.cargo/bin:$HOME/.gem/ruby/2.7.0/bin"
 export CDPATH=".:..:~"
 #export LD_LIBRARY_PATH=/lib:/usr/lib
 export VISUAL=nano
@@ -108,6 +110,7 @@ alias cdg="cd /github/ChiliOS/packages/core/"
 alias cdb="cd /github/ChiliOS/packages/"
 alias cdp="cd /var/cache/pacman/pkg/"
 alias cdl="cd /github/sci/linux/"
+alias cdf="cd /github/fenix/"
 #alias pacman="pacman -S --overwrite \*" # sudo pacman -S --overwrite "*"
 #
 
@@ -795,10 +798,10 @@ function printeradd()
 function addprinter()
 {
 	sudo cupsctl --remote-any --share-printers
-#  sudo lpadmin -p LPT1 -E -v ipp://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
-   sudo lpadmin -p LPT1 -E -v socket://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
-   sudo lpadmin -p LPT2 -E -v socket://10.0.0.99/p2 -m everywhere -o print-is-shared=true -u allow:all
-   sudo lpadmin -p LPT3 -E -v socket://10.0.0.99/p3 -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT1 -E -v ipp://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
+#  sudo lpadmin -p LPT1 -E -v socket://10.0.0.99 -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT2 -E -v ipp://10.0.0.99/p2 -m everywhere -o print-is-shared=true -u allow:all
+   sudo lpadmin -p LPT3 -E -v ipp://10.0.0.99/p3 -m everywhere -o print-is-shared=true -u allow:all
    sudo lpadmin -p SAMSUNG2070 -E -v ipp://10.0.0.77/ipp/print -m everywhere -o print-is-shared=true -u allow:all
 #  sudo lpadmin -p DeskJet -E -v parallel:/dev/lp0 -m everywhere -u allow:all
 #  sudo lpadmin -p DotMatrix -E -m epson9.ppd -v serial:/dev/ttyS0?baud=9600+size=8+parity=none+flow=soft -u allow:all
@@ -877,7 +880,7 @@ delr()
 	#!/bin/sh
 	#find -name $1 | xargs rm -v
 	#!/bin/bash
-	for i in `find -iname $1`
+	for i in `find -iname "$1"`
 	do
         rm -f $i
 	done
@@ -1124,7 +1127,7 @@ function gpush()
 {
 	log_wait_msg "${red}Iniciando git push ${reset}"
 	sudo git config credential.helper store
-	sudo git add *
+	sudo git add .
 	sudo git commit -m "upgrade"
 	sudo git push
 }
@@ -1725,58 +1728,153 @@ function removeoldpkgarch()
 		cd $cOldDir
 }
 
+# flag's para split package
+: ${aPKGSPLIT=()}
+: ${aPKGLIST=}
+: ${PKG_FOLDER_DIR=0}
+: ${PKG_FULLNAME=1}
+: ${PKG_ARCH=2}
+: ${PKG_BASE=3}
+: ${PKG_BASE_VERSION=4}
+: ${PKG_VERSION=5}
+: ${PKG_BUILD=6}
+
+function sh_splitpkg()
+{
+	local PRG='chi.zst'
+	local file=${1}
+	local pkg_folder_dir
+	local pkg_fullname
+	local pkg_arch
+	local pkg_base
+	local pkg_base_version
+	local pkg_version
+	local pkg_build
+	local pkg_str
+	local nconta=0
+	local char="-"
+	local var
+	local ra
+	local re
+
+	aPKGSPLIT=()
+	pkg_folder_dir=$(echo ${file%/*})							#remove arquivo deixando somente o diretorio/repo
+	pkg_fullname=$(echo ${file##*/})    						#remove diretorio deixando somente nome do pacote
+#	pkg_arch=$(echo ${pkg_fullname%.${PRG}*})  					#remove extensao pacote (chi.zst/mz)
+#	pkg_str=$(echo ${pkg_arch%-any*})      						# https://elmord.org/blog/?entry=20121227-manipulando-strings-bash
+#	pkg_str=$(echo ${pkg_str%-x86_64*})      					# https://elmord.org/blog/?entry=20121227-manipulando-strings-bash
+
+	pkg_arch=$(echo ${pkg_fullname%-any.${PRG}*}) 				#remove extensao pacote (chi.zst/mz)
+	pkg_arch=$(echo ${pkg_arch%.arch1*}) 							#remove extensao pacote (chi.zst/mz)
+	pkg_arch=$(echo ${pkg_arch%.arch2*}) 							#remove extensao pacote (chi.zst/mz)
+	#pkg_arch=$(echo ${pkg_arch%-x86_64.${PRG}*}) 				#remove extensao pacote (chi.zst/mz)
+	pkg_arch=$(echo ${pkg_arch%-x86_64*}) 							#remove extensao pacote (chi.zst/mz)
+	pkg_arch=$(echo ${pkg_arch%.${PRG}*})  				  		#remove extensao pacote (chi.zst/mz)
+	pkg_str=$pkg_arch
+
+	#debug
+	#info "file: $file\npkg_folder_dir: $pkg_folder_dir\npkg_fullname: $pkg_fullname\npkg_arch: $pkg_arch\npkg_str: $pkg_str"
+
+	IFS='-' 									# hyphen (-) is set as delimiter
+	read -ra ADDR <<< "$pkg_str"		# str is read into an array as tokens separated by IFS
+	for var in "${ADDR[@]}"; do 		# access each element of array
+		re='[a-zA-Z]'
+		if [[ "$var" =~ $re ]]; then
+			pkg_base="$pkg_base${var}$char"
+		else
+			((nconta++))
+			[[ $nconta -eq 1 ]] && pkg_version=$var || pkg_build=$var
+			#debug
+			#info "pkg_version: $pkg_version\npkg_build: $pkg_build"
+		fi
+	done
+ 	IFS=$SAVEIFS # reset to default value after usage
+	pkg_base=${pkg_base%-*}
+	pkg_version="${pkg_version}-${pkg_build}"
+	pkg_base_version="${pkg_base}-${pkg_version}"
+	[[ $pkg_folder = "" ]] && pkg_folder=$pkg_fullname
+
+	#debug
+#	info " pkg_folder      : $pkg_folder\n" \
+#	 	  "pkg_fullname    : $pkg_fullname\n" \
+#	 	  "pkg_arch        : $pkg_arch\n" \
+#	 	  "pkg_base        : $pkg_base\n" \
+#		  "pkg_base_version: $pkg_base_version\n" \
+#		  "pkg_version     : $pkg_version\n" \
+#		  "pkg_build       : $pkg_build"
+
+	aPKGSPLIT=($pkg_folder_dir $pkg_fullname $pkg_arch $pkg_base $pkg_base_version $pkg_version $pkg_build)
+	aPKGLIST=${aPKGSPLIT[*]}
+	arr=(${aPKGSPLIT[*]})
+#	echo -e "${arr[0]}\n${arr[1]}\n${arr[2]}\n${arr[3]}\n${arr[4]}\n${arr[5]}\n${arr[6]}\n${arr[7]}"
+#	info "${arr[0]}\n${arr[1]}\n${arr[2]}\n${arr[3]}\n${arr[4]}\n${arr[5]}\n${arr[6]}\n${arr[7]}"
+	return $?
+}
 
 function removeoldpkgchili()
 {
+	local arr=
 	local cdir=
+	local nfiles=
+	local pkg=
+	local cOldDir=
+	local AllFilesPackages=
+	local pkg=
+	local pkgInAll=
+	local FilteredPackages=
+	local AllFilteredPackages=
+
 	cd /github/ChiliOS/packages/
+	shopt -s nullglob       # enable suppress error message of a command
+
 	for cdir in {a..z}
 	do
-		echo -e "${white}Verifying packages in ${green}$cdir"
-		local nfiles=0
-		local cOldDir=$PWD
-		local AllFilesPackages=
-		local pkg=
-		local pkgInAll=
-		local FilteredPackages=
-		local AllFilteredPackages=
+		#echo -e "${white}Verifying packages in ${green}$cdir"
+		cOldDir=$PWD
+		pkgInAll=
+		FilteredPackages=
+		AllFilesPackages=
+		AllFilteredPackages=
 
 		if [ $# -lt 1 ]; then
 			pushd $cdir >/dev/null 2>&1
 			AllFilesPackages=$(ls -1 *.{zst,xz})
 		else
-			cdir=${1:0:1}
+			#cdir=${1:0:1}
 			pushd $cdir >/dev/null 2>&1
-			AllFilesPackages=$(ls -1 $1*.{zst,xz} | grep $1)
+			AllFilesPackages=$(ls -1 *.zst | grep ^$1)
 		fi
 
-		log_wait_msg "wait, working on it..."
+		#log_wait_msg "wait, working on it..."
 		for pkgInAll in $AllFilesPackages
 		do
-			pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
-			FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
-			FilteredPackages=$FilteredPackages"-"
+			sh_splitpkg ${pkgInAll}
+			#pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
+			#FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
+			#FilteredPackages=$FilteredPackages"-"
+
+			FilteredPackages=${aPKGSPLIT[$PKG_BASE]}
 			AllFilteredPackages=$(ls -1 $FilteredPackages*.{zst,xz} 2> /dev/null)
-			nfiles=0
-			y=
+			#info "$pkgInAll \n $FilteredPackages \n $AllFilteredPackages"
 			pkg=
+  			arr=(${AllFilteredPackages[*]})
+		  	nfiles=${#arr[*]}
 
-			for y in ${AllFilteredPackages[*]}
-			do
-				((nfiles++))
-			done
-
-			log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
+			#log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
 			if [[ $nfiles -gt 1 ]]; then
 				for pkg in $AllFilteredPackages
 				do
-
+					log_wait_msg "${white}Verifying candidate package ${purple}($nfiles) ${green}$pkgInAll"
+					#info "$pkgInAll \n$pkg"
 					if [[ "$(vercmp $pkgInAll $pkg)" -lt 0 ]]; then
-						maxcol; replicate "=" $?
+						#maxcol; replicate "=" $?
 						log_info_msg "Removing ${red}OLD ${reset}package ${yellow}$pkgInAll"
 						rm $pkgInAll*  >/dev/null 2>&1
 						evaluate_retval
-						maxcol; replicate "=" $?
+						#maxcol; replicate "=" $?
+						if [[ $nfiles -eq 2 ]]; then
+							break
+						fi
 					elif [[ "$(vercmp $pkgInAll $pkg)" -gt 0 ]]; then
 						continue
 					elif [[ "$(vercmp $pkgInAll $pkg)" -eq 0 ]]; then
@@ -1786,10 +1884,8 @@ function removeoldpkgchili()
 			fi
 		done
 		popd >/dev/null 2>&1
-		if [ $# -eq 1 ]; then
-			break
-		fi
 	done
+	shopt -u nullglob       # disable suppress error message of a command
 }
 
 export -f removeoldpkgchili
@@ -1935,4 +2031,15 @@ newtemp() {
 		for((i=1;i<=${1};i++)) ; do touch tmp-${i}.${2} ; echo -e tmp-${i}.${2}; done
 	fi
 }
+
+take () {
+	mkdir -p $@ && cd ${@:$#}
+}
+
+# Windows XSrv config
+export $(dbus-launch)
+export LIBGL_ALWAYS_INDIRECT=1
+#export WSL_VERSION=$(wsl.exe -l -v | grep -a '[*]' | sed 's/[^0-9]*//g')
+export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
+export DISPLAY=$WSL_HOST:0
 
