@@ -1862,9 +1862,9 @@ function removeoldpkgchili()
 
 			#log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
 			if [[ $nfiles -gt 1 ]]; then
+				log_wait_msg "${white}Verifying candidate package ${purple}($nfiles) ${green}$FilteredPackages"
 				for pkg in $AllFilteredPackages
 				do
-					log_wait_msg "${white}Verifying candidate package ${purple}($nfiles) ${green}$pkgInAll"
 					#info "$pkgInAll \n$pkg"
 					if [[ "$(vercmp $pkgInAll $pkg)" -lt 0 ]]; then
 						#maxcol; replicate "=" $?
