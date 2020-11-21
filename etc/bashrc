@@ -382,12 +382,17 @@ function sh_checkparametros()
 
 function info()
 {
-    dialog 				\
-    --beep				\
-    --title     "FETCH"	\
-    --backtitle "fetch"	\
-    --msgbox    "$*"	\
-    15 70
+#	dialog 							\
+	whiptail							\
+      --title     "[debug]$0" \
+		--backtitle "\n${0}\n"  \
+    	--yesno      "$*"		   \
+	0 0
+	result=$?
+	if (( $result )); then
+		exit
+	fi
+	return $result
 }
 
 declare -l BAIXA=${MENSAGEM}
@@ -973,21 +978,13 @@ ultrahd() {
 	sudo xrandr --addmode HDMI-0 2560x1080_60.00
 }
 
-function info(){
-    dialog                              \
-        --beep                      \
-        --title     "$cmsg002"      \
-        --backtitle "$ccabec"       \
-        --msgbox    "$*"            \
-        00  00
-}
-
 function tms()
 {
     journalctl -f
 }
 
-sr() {
+function sr()
+{
 	sudo systemctl restart $1
 	sudo systemctl status $1
 }
@@ -1907,6 +1904,9 @@ function copiapkg()
 	do
 		log_info_msg "Copiando arquivos iniciados com a letra: $letra para diretorio /github/ChiliOS/packages/$letra/"
 		cp $letra* /github/ChiliOS/packages/$letra/ &>/dev/null
+		log_info_msg "Copiando arquivos iniciados com a letra: $letra para diretorio /mnt/c/github/ChiliOS/packages/$letra/"
+		cp $letra* /mnt/c/github/ChiliOS/packages/$letra/ &>/dev/null
+		cp $letra* /var/cache/fetch/archives/ &>/dev/null
 		evaluate_retval
 	done
 }
@@ -2036,6 +2036,36 @@ take () {
 	mkdir -p $@ && cd ${@:$#}
 }
 
+function sc()
+{
+	service $1 start;
+	service $1 status;
+}
+
+function services(){
+	local idx=0
+	local adir=
+	local adaemon=
+
+	. /lib/lsb/init-functions
+	servers=('sshd' 'unbound' 'nginx' 'cups')
+	dirs=('/run' '/run' '/run' '/run/cups')
+	daemons=('sshd' 'unbound' 'nginx' 'cupsd')
+
+	for srv in "${servers[@]}"
+	do
+		adir=${dirs[$idx]}
+		adaemon=${daemons[$idx]}
+		pid=`cat $adir/$adaemon.pid 2>/dev/null`
+		if [ -n "${pid}" ]; then
+			statusproc /usr/sbin/$srv
+		else
+			service $srv start
+		fi
+		(( idx++ ))
+	done
+}
+
 # Windows XSrv config
 export $(dbus-launch)
 export LIBGL_ALWAYS_INDIRECT=1
@@ -2043,3 +2073,4 @@ export LIBGL_ALWAYS_INDIRECT=1
 export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
 export DISPLAY=$WSL_HOST:0
 
+services
