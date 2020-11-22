@@ -2,6 +2,7 @@
 export LC_ALL="pt_BR.utf8"
 IFS=$' \t\n'
 SAVEIFS=$IFS
+source /lib/lsb/init-functions
 
 #wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
 eval $(dircolors -b $HOME/.dircolors)
@@ -2047,7 +2048,6 @@ function services(){
 	local adir=
 	local adaemon=
 
-	. /lib/lsb/init-functions
 	servers=('sshd' 'unbound' 'nginx' 'cups')
 	dirs=('/run' '/run' '/run' '/run/cups')
 	daemons=('sshd' 'unbound' 'nginx' 'cupsd')
@@ -2065,6 +2065,7 @@ function services(){
 		(( idx++ ))
 	done
 }
+export -f services
 
 # Windows XSrv config
 export $(dbus-launch)
@@ -2073,4 +2074,4 @@ export LIBGL_ALWAYS_INDIRECT=1
 export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
 export DISPLAY=$WSL_HOST:0
 
-services
+#services
