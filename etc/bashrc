@@ -6,9 +6,9 @@ source /lib/lsb/init-functions
 
 #wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
 eval $(dircolors -b $HOME/.dircolors)
-shopt -s cdspell
-shopt -s dotglob        # ls *bash*
-shopt -s extglob        # ls file?(name); ls file*(name); ls file+(name); ls file+(name|utils); ls file@(name|utils)
+#shopt -s cdspell
+#shopt -s dotglob        # ls *bash*
+#shopt -s extglob        # ls file?(name); ls file*(name); ls file+(name); ls file+(name|utils); ls file@(name|utils)
 #shopt -s nullglob			# suppress error message of a command
 
 ulimit -n 32767
@@ -537,7 +537,7 @@ function setvarcolors()
        	violet=$(tput setaf 61);
         	white=$(tput setaf 15);
         	yellow=$(tput setaf 136);
-			pink="\033[35;1m";
+        	pink=$(tput setaf 129);
     else
 			bold='';
         	reset="\e[0m";
@@ -1089,15 +1089,17 @@ function bcp()
 	evaluate_retval
 }
 
-lsd(){
-    echo -e ${blue}
-    ls -l | awk '/^d/ {print $9}'
-    #ls -la | grep "^d"
-    #ls -d */
-    echo -n ${reset}
+function lsd()
+{
+	echo -e ${blue}
+	ls -l | awk '/^d/ {print $9}'
+	#ls -la | grep "^d"
+	#ls -d */
+	echo -n ${reset}
 }
 
-lsa(){
+function lsa()
+{
     echo -n ${orange}
     ls -l | awk '/^-/ {print $9}'
 #   ls -la | grep -v "^d"
@@ -1130,12 +1132,12 @@ function gpush()
 	sudo git push
 }
 
-as_root()
+function as_root()
 {
-  if   [ $EUID = 0 ];        then $*
-  elif [ -x /usr/bin/sudo ]; then sudo $*
-  else                            su -c \\"$*\\"
-  fi
+	if   [ $EUID = 0 ];        then $*
+	elif [ -x /usr/bin/sudo ]; then sudo $*
+	else                            su -c \\"$*\\"
+	fi
 }
 export -f as_root
 
@@ -1285,6 +1287,7 @@ as_root()
   fi
 }
 export -f as_root
+
 #Python 3.7.3
 export PYTHONDOCS=/usr/share/doc/python-3/html
 
@@ -1885,7 +1888,6 @@ function removeoldpkgchili()
 	done
 	shopt -u nullglob       # disable suppress error message of a command
 }
-
 export -f removeoldpkgchili
 
 function limpa_tar_zst()
@@ -2039,8 +2041,12 @@ take () {
 
 function sc()
 {
-	service $1 start;
-	service $1 status;
+	pid=`cat /run/$1.pid 2>/dev/null`
+	if [ -n "${pid}" ]; then
+		statusproc /usr/sbin/$1
+	else
+		service $1 start
+	fi
 }
 
 function services(){
@@ -2067,6 +2073,19 @@ function services(){
 }
 export -f services
 
+function renane()
+{
+	for f in $1;
+	do
+		mv "$f" ${f/$1/$2 }
+	done
+}
+
+function zerobyte()
+{
+	for f in "$1" ; do rm "$f"; > "$f" ; done
+}
+
 # Windows XSrv config
 export $(dbus-launch)
 export LIBGL_ALWAYS_INDIRECT=1
@@ -2075,3 +2094,34 @@ export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
 export DISPLAY=$WSL_HOST:0
 
 #services
+
+function colors()
+{
+	for c in {0..255}; do tput setaf $c; tput setaf $c | cat -v; echo =$c; done
+}
+
+function colortable()
+{
+	for ((i=0; i<256; i++)) ;do
+  	 echo -n '  '
+    tput setab $i
+    tput setaf $(( ( (i>231&&i<244 ) || ( (i<17)&& (i%8<2)) ||
+        (i>16&&i<232)&& ((i-16)%6 <(i<100?3:2) ) && ((i-16)%36<15) )?7:16))
+    printf " C %03d " $i
+    tput op
+    (( ((i<16||i>231) && ((i+1)%8==0)) || ((i>16&&i<232)&& ((i-15)%6==0)) )) &&
+        printf "\n" ''
+	done
+}
+
+function pkgsemdesc()
+{
+	local nconta=0
+
+	for i in *.zst; do
+		if ! test -e $i.desc; then
+			(( nconta++ ))
+			printf "${red}%04d ${yellow}$i\n" $nconta
+		fi
+	done
+}
