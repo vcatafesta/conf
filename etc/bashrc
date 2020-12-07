@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 export LC_ALL="pt_BR.utf8"
-LIBRARY=${LIBRARY:-'/usr/share/fetch'}
 IFS=$' \t\n'
 SAVEIFS=$IFS
 LIBRARY=${LIBRARY:-'/usr/share/fetch'}
