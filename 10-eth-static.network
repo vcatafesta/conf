@@ -1,0 +1,9 @@
+[Match]
+Name=eth0
+
+[Network]
+Address=10.0.0.70/21
+Gateway=10.0.0.254
+DNS=10.0.0.254
+DNS=8.8.8.8
+#Domains=localhost

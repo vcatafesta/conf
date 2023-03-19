@@ -1,0 +1,79 @@
+# /etc/printcap: printer capability database. See printcap(5).
+# You can use the filter entries df, tf, cf, gf etc. for
+# your own filters. See /etc/filter.ps, /etc/filter.pcl and
+# the printcap(5) manual page for further details.
+
+#lp|Generic dot-matrix printer entry
+#       :lp=/dev/lp0
+#        :sd=/var/spool/lpd/lp
+#        :af=/var/log/lp-acct
+#        :lf=/var/log/lp-errs
+#        :pl#66
+#        :pw#80
+#        :pc#150
+#        :mx#0
+#        :sh:
+
+# rlp|Remote printer entry
+#         :lp=
+#         :rm=remotehost
+#         :rp=remoteprinter
+#         :sd=/var/spool/lpd/remote
+#         :mx#0
+#         :sh:
+
+LPT1-2|LX300:rm=localhost:rp=LPT1:
+LPT2-2|LX300:rm=localhost:rp=LPT2:
+SAMSUNG2020|SAMSUNG 2020:rm=localhost:rp=SAMSUNG2020:
+
+LPT1|Epson Lx300 em Atendimento
+:sd=/var/spool/lpd/LPT1
+:rm=10.0.0.99      
+:rp=p1      
+:sh
+
+LPT2|Epson Lx300 em Ubuntu
+:sd=/var/spool/lpd/LPT2
+:rm=ubuntu.sybernet.com.br      
+:rp=lp      
+:sh
+
+lx300|Epson Lx300 em Atendimento
+:sd=/var/spool/lpd/lx300      
+:rm=10.0.0.99      
+:rp=p1      
+:sh
+
+lx-r|Epson Lx300 em Atendimento
+:sd=/var/spool/lpd/lx-r      
+:rm=10.0.0.99      
+:rp=p1      
+:sh
+
+p1|Epson Lx300 em Atendimento
+:sd=/var/spool/lpd/p1
+:rm=10.0.0.99      
+:rp=p1      
+:sh
+
+p2|Impressora Remota      
+:sd=/var/spool/lpd/p2
+:rm=10.0.0.99      
+:rp=p2      
+:sh
+
+p3|Impressora Remota      
+:sd=/var/spool/lpd/p3      
+:rm=10.0.0.99      
+:rp=p3      
+:sh
+
+rlp|Remote printer entry         #
+:sd=/var/spool/lpd/rlp         
+:rm=10.0.0.99
+:rp=p1         
+:mx#0         
+:sh
+
+
+

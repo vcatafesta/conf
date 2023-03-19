@@ -1,0 +1,2102 @@
+#!/usr/bin/env bash
+
+#bash -c "help declare"
+#echo "blacklist sbridge" >> /etc/modprobe.d/blacklist.conf
+#pvphquci076942
+#Dfiz451960@
+
+#HISTIGNORE='+([a-z])'
+#HISTIGNORE=$'*([\t ])+([-%+,./0-9\:@A-Z_a-z])*([\t ])'
+#export TMPDIR=/tmp
+export TMPDIR=/dev/shm
+PROMPT_DIRTRIM=0
+export LC_ALL="pt_BR.UTF-8"
+export SBCL_HOME=/usr/lib/sbcl
+#export LC_ALL=C
+IFS=$' \t\n'
+SAVEIFS=$IFS
+LIBRARY=${LIBRARY:-'/usr/share/fetch'}
+source /usr/lib/lsb/init-functions
+source "$LIBRARY"/core.sh
+
+configure() {
+	eval $(dircolors -b $HOME/.dircolors)
+	source /github/benshmark/v3.sh
+	alias benshmark=benshmark-v3
+	alias dmesg="dmesg -T -x"
+	#alias nproc="nproc --ignore=18"
+	#shopt -s cdspell
+	#shopt -s dotglob       # ls *bash*
+	#shopt -s extglob       # ls file?(name); ls file*(name); ls file+(name); ls file+(name|utils); ls file@(name|utils)
+	#shopt -s nullglob		# suppress error message of a command
+	#shopt -s dotglob # * expande tudo, começando ou não com ponto, menos . e ..
+	#set +h
+	#set -o noclobber   #bloquear substituicao de arquivo existente
+	set +o noclobber    #liberar  substituicao de arquivo existente. operator >| ignore the noclobbeer
+	export token='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'
+	export token_CHILI='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'
+
+	#alias sc="sftp -P 65002 u356719782@chililinux.com"  #password Dfiz451960
+	alias sc="sftp -P 65002 u356719782@185.211.7.40:/home/u356719782/domains/chililinux.com/public_html/packages/core/"
+	alias hs="ssh -X -p 65002 u356719782@185.211.7.40"
+	#alias v="ssh -l vcatafesta -t balcao '/home/vcatafesta/SYS/sci/sci'"
+	#alias hsync="rsync --progress -Cravzp --rsh='ssh -l u356719782 -p 65002' u356719782@185.211.7.40:/home/u356719782/domains/chililinux.com/public_html/packages/core/ /github/ChiliOS/packages/core/"
+	#alias hsync="rsync --progress -Cravzp --rsh='ssh -l u356719782 -p 65002' /github/ChiliOS/packages/core/ u356719782@185.211.7.40:/home/u356719782/domains/chililinux.com/public_html/packages/core/"
+	alias hdito="ssh vcatafesta@200-98-137-64.clouduol.com.br"
+	alias gsync="rsync --exclude={'dev','proc','sys','tmp'} -Cravzp --rsh='ssh -l root -p 22' mox:/ /vg/gentoo/"
+	#wget https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
+
+	ulimit -S -c 0      # Don't want coredumps.
+	ulimit -n 32767
+	#export PS1='\u@\h:\w\$\[\033[01;31m\]\u@\h[\033[01;34m\]\w \[\e[1;31m\]\$ \[\033[00m\]'
+	#export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\$\[\033[01;34m\]\w\[\e[1;31m\]\$ \[\033[00m\]'
+	#export PS1='\[\033[01;31m\]${debian_chroot:+($debian_chroot)}\u@\h[\033[01;34m\]\w \[\e[1;31m\]\$ \[\033[00m\]'
+	#export DISPLAY=10.0.0.80:0.0
+	#export TZ=America/Porto_Velho
+	export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
+	export PATH=".:/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/sbin:$HOME/.cargo/bin:$HOME/.gem/ruby/2.7.0/bin:/chili:/github/benshmark:/github/void-installer:/github/v"
+	export CDPATH=".:..:~"
+	#export LD_LIBRARY_PATH=/lib:/usr/lib
+	export VISUAL=nano
+	export EDITOR=nano
+	export processadores=$(nproc)
+	#umask 022
+	#export LFS=/mnt/lfs
+	#export LC_ALL=POSIX
+	#export LFS_TGT=$(uname -m)-lfs-linux-gnu
+	export MAKEFLAGS='-j 36'
+	alias lvma="lvm vgchange -a y -v" $1
+	alias src="cd /sources/blfs"
+	alias wget="wget --no-check-certificate"
+	alias cdx="cd /var/www/html"
+	alias pxe="cd /mnt/NTFS/software"
+	alias ed++="wine /home/vcatafesta/.wine/dosdevices/'c:/Program Files'/Notepad++/notepad++.exe $1 &"
+	alias discos="udisksctl status"
+	alias dd="dd status=progress"
+	alias ack="ack -n --color-match=red"
+	alias tmm="tail -f /var/log/mail.log | grep ."
+	alias win="lightdm"
+	alias dir="dir --group-directories-first"
+	alias DIR=dir
+	alias github="cd /github ; ls"
+	alias backuptheme="rsync --progress -Cravzp --rsh='ssh -l root' root@10.0.0.80:/mnt/usr/share/grub/themes/ /usr/share/grub/themes/"
+	alias dude="wine /root/.wine/drive_c/'Program Files'/Dude/dude &"
+	alias sci="cd /home/sci-work/; ./sci"
+	alias sl="cd /home/vcatafesta/sci/src.linux ; ls"
+	#alias ouvindo="netstat -anp | grep :69"
+	alias ouvindo="netstat -anp | grep :"
+	alias listen="netstat -anp | grep :"
+	alias portas="sockstat | grep ."
+	alias portas1="lsof -i | grep ."
+	#alias tree="tree -Cush"
+	alias tree="tree -Chv"
+
+	# newbiew from windows
+	alias ren=mv
+	alias ls="ls -CF -h --color=auto --group-directories-first"
+	alias dirm="ls -h -ls -Sr --color=auto"
+	#alias dir="ls -la -c --color=auto"
+	#alias dir="exa -la -g --icons --color=auto"
+	#alias dir="exa --long --header --git --all --icons"
+	alias dir="exa -all --long --modified --group"
+	alias dir="ls -CF -la -h --color=auto --group-directories-first"
+	alias l=dir
+	alias dirt="la -h -ls -Sr -rt --color=auto"
+	#alias dir="ls -h -ls -X --color=auto"
+	alias ed=nano
+	alias ED=nano
+	alias copy=cp
+	alias md=mkdir
+	alias rd=rmdir
+	alias del=rm
+	alias deltraco="rm --"
+	alias df="df -hT --total"
+	alias fs="file -s"
+	alias mem="free -h"
+	alias cls=clear
+	alias CD=cd
+	#alias ddel1="rm -fvR"
+	#alias ddel2="find -iname $1 -type d | xargs rm -fvR"
+	alias ddel2="find -iname $1 | xargs rm --verbose"
+	alias ddel="find -name $1 | xargs rm -fvR"
+	#alias mmv="mv -f /diretorio01/{.*,*} /diretorio0/"
+	xdel() { find . -name "*$1*" | xargs rm -fv ; }
+	tolower() { find . -name "*$1*" | while read; do mv "$REPLY" "${REPLY,,}"; done; }
+	toupper() { find . -name "*$1*" | while read; do mv "$REPLY" "${REPLY^^}"; done; }
+	alias fdisk="fdisk -l"
+	#alias portas="nmap -v $?"
+	alias portas="nmap -v localhost"
+	alias port="sockstat | grep ."
+	alias cdi="cd /home/vcatafesta/SYS/sci ; ls"
+	alias cds="cd /etc/rc.d/init.d ; ls"
+	alias cdd="cd /etc/systemd/system/ ; ls"
+	alias du="du -h"
+	alias dut="du -hs * | sort -h"
+	#alias xcopy="cp -Rpvn"
+	alias xcopyn="cp -Rpvan"
+	alias xcopy="cp -Rpva"
+	#alias cp="rsync -ahu --info=progress2"
+	#alias cpr="rsync -ahur --info=progress2"
+	alias versao="lsb_release -a"
+	#alias rdel="find -iname -exec rm -v {} \;"
+	#alias rdel="find -name $1 -exec rm -fv {} \;"
+	#alias rdel='find . -name "$1" | xargs -i bash -c "mv {} dir; echo Removido: {}"'
+	#alias rdel='find . -name '$1' -print0 | xargs -0 rm -v'
+	alias ver="lsb_release -a"
+	alias cdg="cd /github/ChiliOS/packages/core"
+	alias cdr="cd /github/ChiliOS/repo"
+	alias cdb="cd /github/ChiliOS/packages"
+	alias cdp="cd /var/cache/pacman/pkg"
+	alias cda="cd /var/cache/fetch/archives"
+	alias cds="cd /var/cache/fetch/search"
+	alias cdd="cd /var/cache/fetch/desc"
+	alias cdl="cd /github/sci/linux"
+	alias cdf="cd /github/fenix"
+	alias .1='cd ..'
+	alias .2='cd ../..'
+	alias .3='cd ../../..'
+	#alias pacman="pacman -S --overwrite \*" # sudo pacman -S --overwrite "*"
+	alias start=sr
+	alias stop=st
+	alias restart="systemctl restart"
+	alias status="systemctl status"
+	alias reload="systemctl reload"
+	alias disable="systemctl disable"
+	alias enable="systemctl enable"
+	alias ativo="systemctl is-enabled"
+	alias nm-ativo="systemctl --type=service"
+	alias reload="systemctl daemon-reload"
+	#alias jornal="journalctl -xe"
+	alias jornal="journalctl -p 0..3 -xb"
+	alias jornalclear="journalctl --rotate; journalctl --vacuum-time=1s"
+	#
+	alias backup-serviio="rsync --progress -Cravzp /home/public/ /mnt/home/serviio/public"
+	alias backup-sci.src="rsync --progress -Cravzp /home/drive_c_80/sci/ /home/sci.src/"
+	alias backup-sci="rsync --progress -Cravzp /home/drive_c_80/sys/sci/ /home/sys/sci/"
+	alias backup-mikrotik="rsync --progress -Cravzp /home/drive_c_80/sys/backup/ /home/sys/backup/"
+	alias backup-win95_cd="rsync --progress -Cravzp /home/drive_c_66/win95_cd/ /home/drive_c_80/win95_cd/"
+	alias backup-pmv="scp -prvC backup@primavera.sybernet.changeip.org:/ /home/vcatafesta/backup/primavera"
+	alias backup-pbw="scp -prvC backup@10.0.0.254:/ /home/vcatafesta/backup/rb-3011"
+	alias backup-rb1100="scp -prvC backup@172.31.255.2:/ /home/vcatafesta/backup/rb-1100"
+	alias rsync-pmv="rsync --progress -Cravzp --rsh='ssh -v -l backup' backup@primavera.sybernet.changeip.org:/ /home/vcatafesta/backup/primavera"
+	alias rsync-pbw="rsync --progress -Cravzp --rsh='ssh -v -l backup' backup@10.0.0.254:/ /home/vcatafesta/backup/rb-3011/"
+	alias rsync="rsync --progress -Cravzp"
+	alias dcomprimtar="tar -vzxf"
+	alias targz="tar -xzvf"
+	alias tarxz="tar -Jxvf"
+	alias tarbz2="tar -xvjf"
+	alias untar="tar -xvf"
+	alias pyc="python -OO -c 'import py_compile; py_compile.main()'"
+	alias tml="tail -f /var/log/lastlog"
+	#alias tms="tail -f /var/log/syslog"
+	#alias tmm="tail -f /var/log/messages"
+	#alias tmk="tail -f /var/log/mikrotik/10.0.0.254.2018.01.log | grep: '^[0-9\.]*'"
+	alias tmk="multitail -f /var/log/mikrotik/10.0.0.254.2018.01.log"
+	alias tmd="tail -f /var/log/dnsmasq.log"
+	alias smbmount="mount -t cifs -o username=vcatafesta,password=451960 //10.0.0.68/c /root/windows"
+	alias ip="ip -c"
+
+#	alias rmake="hbmk2 -info"
+	alias rmake="hbmk2 -info -comp=gcc   -cpp=yes -jobs=36"
+#	alias rmake="hbmk2 -info -comp=clang -cpp=yes -jobs=36"
+
+	#man colour
+	export LESS_TERMCAP_mb=$'\e[1;32m'
+	export LESS_TERMCAP_md=$'\e[1;32m'
+	export LESS_TERMCAP_me=$'\e[0m'
+	export LESS_TERMCAP_se=$'\e[0m'
+	export LESS_TERMCAP_so=$'\e[01;33m'
+	export LESS_TERMCAP_ue=$'\e[0m'
+	export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+	if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+		export TERM='gnome-256color';
+	elif infocmp xterm-256color >/dev/null 2>&1; then
+		export TERM='xterm-256color';
+	fi;
+
+	#Python 3.7.3
+	export PYTHONDOCS=/usr/share/doc/python-2.7.16/html
+	export PYTHONDOCS=/usr/share/doc/python-3/html
+	alias mkd="make install DESTDIR=$l"
+	#CHOST="i686-pc-linux-gnu"
+	#CFLAGS="-march=prescott -O2 -pipe -fomit-frame-pointer"
+	#CFLAGS="-march=native -02 -pipe"
+	#CFLAGS="-march=athlon64 -O2 -pipe"
+	#CFLAGS="-march=skylake -O2 -pipe"
+	#CXXFLAGS="${CFLAGS}"
+
+	CHOST="x86_64-pc-linux-gnu"
+	#CFLAGS="-march=native -02 -pipe"
+	#CFLAGS="-march=pentium3 -02 -pipe"
+	#CFLAGS="-march=ahtlon64 -03 -pipe"
+	#CFLAGS="-march=generic -02 -pipe"
+	#Core i3/i5/i7 and Xeon E3/E5/E7 *V2
+	#CFLAGS="-march=ivybridge -O2 -pipe"
+	#Pentium
+	#CFLAGS="-O2 -march=pentium-m -pipe"
+	#CFLAGS="-march=ivybridge -mno-avx -mno-aes -mno-rdrnd -O2 -pipe"
+	#CFLAGS="-march=ivybridge -mno-avx -mno-aes -mno-rdrnd -O3 -pipe -fomit-frame-pointer"
+	#CFLAGS="-mtune=intel -O2 -pipe -fomit-frame-pointer"
+	#CFLAGS="-mtune=generic -O3 -pipe -fomit-frame-pointer"
+	#CFLAGS="-march=x86-64 -02 -pipe"
+	#CXXFLAGS="${CFLAGS}"
+	W1="-Wunused-local-typedefs"
+	W2="-Wunused-but-set-variable"
+	W3="-Wunused-function"
+	W4="-Wno-declaration-after-statement"
+	W5="-Wno-error=deprecated-declarations"
+	W6="-Wno-deprecated-declarations"
+	W7="-Wno-suggest-attribute=format"
+	W8="-Wno-unused-variable"
+	W9="-Wno-unused-but-set-variable"
+	W10="-Wno-unused-function"
+	W11="-Wno-parentheses"
+#	W12="-Werror=maybe-uninitialized"
+	W12="-Wmaybe-uninitialized"
+	W0="-mtune=generic -fPIC -Os -pipe -fomit-frame-pointer"
+
+#	CFLAGS="${W0} ${W1} ${W2} ${W3} ${W4} ${W5} ${W6} ${W7} ${W8} ${W9} ${W10} ${W11} ${W12}"
+#	CXXFLAGS="${W0} ${W1} ${W2} ${W3} ${W5} ${W6} ${W7} ${W8} ${W9}"
+#	export CHOST CFLAGS CXXFLAGS
+
+	#gcc -c -Q -march=native --help=target
+	#gcc -### -march=native /usr/include/stdlib.h
+	#gcc -v -E -x c /dev/null -o /dev/null -march=native 2>&1 | grep /cc1
+	#unset CXXFLAGS
+	export PATH="$PATH:/src/depot_tools"
+	#PS1="\e[32;1m\u \e[33;1m→ \e[36;1m\h \e[37;0m\w\n\e[35;1m⚡\e[m"
+
+	if [[ "${USER}" == "root" ]]; then
+		userStyle="${red}";
+	else
+		userStyle="${orange}";
+	fi;
+
+	if [[ "${SSH_TTY}" ]]; then
+		hostStyle="${bold}${red}";
+	else
+		hostStyle="${yellow}";
+	fi;
+
+	# Set the terminal title and prompt.
+	PS1="\[\033]0;\W\007\]"; # working directory base name
+	PS1+="\[${bold}\]\n"; # newline
+	PS1+="\[${userStyle}\][SYSTEMD]\u@[$HOSTNAME]"; # username
+	PS1+="\[${white}\] at ";
+	PS1+="\[${hostStyle}\]\h"; # host
+	PS1+="\[${white}\] in ";
+	PS1+="\[${green}\]\w"; # working directory full path
+	PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
+	PS1+="\n";
+	PS1+="\[${white}\]\e[35;1m⚡\e[m\[${reset}\]"; # `#` (and reset color)
+	PS1='\e[32;1m\u \e[33;1m→ \e[36;1m\h \e[37;0m\w\n\e[35;1m�# \e[m'
+
+	export PS1;
+	export PS2="\[${yellow}\]→ \[${reset}\]";
+	function path(){ echo -e "${PATH//:/\\n}";}
+}
+
+lsd() {
+	printf "${blue}\n"
+	ls -l | awk '/^d/ {print $9}'
+#	ls -la | grep "^d"
+#	ls -d */
+	printf "${reset}"
+}
+
+lsa() {
+	echo -n ${orange}
+	ls -l | awk '/^-/ {print $9}'
+#	ls -la | grep -v "^d"
+}
+
+setkeyboardX() {
+	session=$(loginctl show-session "$XDG_SESSION_ID" -p Type --value)
+	case $session in
+		x11)		setxkbmap -model abnt2 -layout br -variant abnt2;;
+		wayland) loginctl show-session "$XDG_SESSION_ID" -p Type --value;;
+	esac
+}
+
+rsync-fs() {
+	_source=$1
+	_target=$2
+
+	rsync 					\
+		--human-readable  \
+     	--archive         \
+      --delete-delay    \
+      --verbose         \
+      --recursive       \
+      --links           \
+      --perms           \
+      --times           \
+      --partial         \
+      --compress        \
+      --progress        \
+      --hard-links      \
+      --exclude 'proc'  \
+      --exclude 'sys'   \
+      --exclude 'dev'   \
+      --exclude 'vg'    \
+      $_source				\
+      $_target
+}
+#     --delete-delay    \
+#     --delay-updates   \
+
+prompt_git() {
+	local s='';
+	local branchName='';
+
+	# Check if the current directory is in a Git repository.
+	if [ $(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}") == '0' ]; then
+		# check if the current directory is in .git before running git checks
+		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
+			# Ensure the index is up to date.
+			git update-index --really-refresh -q &>/dev/null;
+			# Check for uncommitted changes in the index.
+			if ! $(git diff --quiet --ignore-submodules --cached); then
+				s+='+';
+			fi;
+			# Check for unstaged changes.
+			if ! $(git diff-files --quiet --ignore-submodules --); then
+				s+='!';
+			fi;
+			# Check for untracked files.
+			if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+				s+='?';
+			fi;
+			# Check for stashed files.
+			if $(git rev-parse --verify refs/stash &>/dev/null); then
+				s+='$';
+			fi;
+		fi;
+
+		# Get the short symbolic ref.
+		# If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+		# Otherwise, just give up.
+		branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+			git rev-parse --short HEAD 2> /dev/null || \
+			echo '(unknown)')";
+		[ -n "${s}" ] && s=" [${s}]";
+		echo -e "${1}${branchName}${2}${s}";
+	else
+		return;
+	fi;
+}
+
+chili-pkgorfao() {
+	local cOldDir=$PWD
+	local	nc=0
+
+	[[ -f '/etc/fetch/fetch.conf' ]] && source '/etc/fetch/fetch.conf'
+	pushd "$GITDIR/packages/" > /dev/null 2>&- || return 1
+
+	for cdir in {a..z}
+   do
+		cOldDir=$PWD
+      cd $cdir > /dev/null 2>&- || return 1
+		pkgs=$(echo "*.zst")
+		for i in $pkgs
+		do
+			[[ -e "$i.desc" ]] || { ((++nc)); printf "$GITDIR/packages/$cdir/$i\n"; }
+		done
+      cd $cOldDir > /dev/null 2>&-
+	done
+	popd >/dev/null 2>&-
+	return $nc
+}
+export -f chili-pkgorfao
+
+filehoracerta() {
+	export SOURCE_DATE_EPOCH=$(date +%s)
+	find . -exec touch -h -d @$SOURCE_DATE_EPOCH {} +
+}
+
+horacerta() {
+	sudo ntpd -q -g;
+	sudo hwclock --systohc
+}
+
+GREP_OPTIONS() {
+	GREP_OPTIONS='--color=auto'
+}
+
+printeradd() {
+	addprinter "$@"
+}
+
+addprinter() {
+	sudo cupsctl --remote-any --share-printers
+	sudo lpadmin -p LPT1 -E -v ipp://10.0.0.99/p1 -L "EPSON LX300 em Atendimento" -m everywhere -o print-is-shared=true -u allow:all
+#	sudo lpadmin -p LPT1 -E -v socket://10.0.0.99 -m everywhere -o print-is-shared=true -u allow:all
+	sudo lpadmin -p LPT2 -E -v ipp://10.0.0.99/p2 -m everywhere -o print-is-shared=true -u allow:all
+	sudo lpadmin -p LPT3 -E -v ipp://10.0.0.99/p3 -m everywhere -o print-is-shared=true -u allow:all
+	sudo lpadmin -p SAMSUNG2070 -E -v ipp://10.0.0.77/ipp/print -m everywhere -o print-is-shared=true -u allow:all
+#	sudo lpadmin -p DeskJet -E -v parallel:/dev/lp0 -m everywhere -u allow:all
+#	sudo lpadmin -p DotMatrix -E -m epson9.ppd -v serial:/dev/ttyS0?baud=9600+size=8+parity=none+flow=soft -u allow:all
+#	sudo lpadmin -p PRINTERNAME -E -v smb://10.0.0.68/P1 -L "LOCATION" -o auth-info-required=negotiate -u allow:all
+	sudo lpadmin -d LPT1
+}
+
+mostra() {
+	sudo lpstat -s
+	sudo lpq
+}
+
+cancela() {
+	sudo systemctl stop lprng
+	sudo rm -rf /var/spool/lpd
+	sudo rm /home/sci/LPT*
+	sudo rm /home/sci/COM*
+	sudo checkpc -f
+	sudo systemctl start lprng
+	sudo lprm
+	sudo systemctl status lprng
+}
+
+direxist() {
+	dir="$1"
+	if [ -e "$dir" ] ; then
+		echo "o diretório {$dir} existe"
+	else
+		echo "o diretório {$dir} não existe"
+	fi
+}
+
+email() {
+	#!/bin/bash
+	echo "CORPO" | mail -s "Subject" -A /etc/bashrc vcatafesta@balcao
+}
+
+modo() {
+	echo 'atual mode:'; systemctl get-default
+#	systemctl set-default multi-user.target
+	systemctl set-default graphical.target
+	echo 'new mode  :'; systemctl get-default
+}
+
+sshsemsenha() {
+	USUARIO=${USER}
+	#SERV="10.0.0.72"
+	SERV=$1
+	echo $1
+
+	ssh-keygen -t rsa
+#	scp /home/$USER/.ssh/id_rsa.pub $USER@$SERV:/tmp
+#	scp ~/.ssh/id_rsa.pub $USUARIOR@$SERV:/tmp
+#	ssh $USUARIO@$SERV
+#	cat /tmp/id_rsa.pub >> ~/.ssh/authorized_keys
+	ssh-copy-id -p 22 -f -i ~/.ssh/id_rsa.pub $SERV
+}
+
+sshsemsenhahs() {
+	USUARIO=u356719782
+	REMOTO=185.211.7.40
+	echo $1
+
+#	ssh-keygen -t rsa
+	ssh-copy-id -p 65002 -f -i ~/.ssh/id_rsa.pub $USUARIO@$REMOTO
+}
+
+sshsemsenhadito() {
+	USUARIO=vcatafesta
+	REMOTO=200.98.137.64
+	echo $1
+
+#	ssh-keygen -t rsa
+	ssh-copy-id -p 22 -f -i ~/.ssh/id_rsa.pub $USUARIO@$REMOTO
+}
+
+xdel1() {
+	#!/usr/bin/env bash
+	#find -name $1 | xargs rm -v
+	#!/bin/bash
+	arr=$(find -iname "${1}")
+
+	echo "${arr[*]}"
+	for i in "${arr[*]}"
+	do
+		rm -f $i
+	done
+}
+
+rdel() {
+	#!/bin/sh
+	#find -name $1 | xargs rm -v
+	#!/bin/bash
+	for i in `find -iname "$1"`
+	do
+		rm -f $i
+	done
+}
+
+delr() {
+	#!/bin/sh
+	#find -name $1 | xargs rm -v
+	#!/bin/bash
+	for i in `find -iname "$1"`
+	do
+		rm -f $i
+	done
+}
+
+chili-ramdisk() {
+	#!/bin/bash
+	sudo mkdir /mnt/ramdisk
+	sudo mount -t tmpfs -o size=4096M tmpfs /mnt/ramdisk
+	#fstab
+	#tmpfs       /mnt/ramdisk tmpfs   nodev,nosuid,noexec,nodiratime,size=512M   0 0
+}
+
+chili-qemuimg() {
+	if test $# -ge 1; then
+		#qemu-system-x86_64 -cdrom tails-amd64-3.1.iso
+		qemu-system-x86_64 -no-fd-bootchk -nographic $1
+	else
+	cat <<EOF
+usage:
+	chili-qemuimg <file>
+EOF
+	fi
+}
+
+chili-qemu() {
+	#!/bin/bash
+	#qemu-system-x86_64 -cdrom tails-amd64-3.1.iso
+	qemu-system-x86_64 -m 4096 -no-fd-bootchk -nographic -cdrom $1
+}
+
+chili-qemux() {
+	#!/bin/bash
+	#qemu-system-x86_64 -cdrom tails-amd64-3.1.iso
+	qemu-system-x86_64 -curses -no-fd-bootchk -nographic -cdrom $1
+}
+
+chili-qemukvm() {
+	#qemu-system-x86_64 -enable-kvm -m 2048 -name 'CHILI OS' -boot d -hda ubuntu17.qcow2 -cdrom $1
+	qemu-system-x86_64 -enable-kvm -m 2048 -name 'CHILI OS' -boot -cdrom $1
+}
+
+chili-qemurunraw() {
+	if test $# -ge 1; then
+#		qemu-system-x86_64 -m 4096 -display curses -no-fd-bootchk -no-reboot -drive format=raw,file=$1
+#		qemu-system-x86_64 -m 4096 -display curses -no-fd-bootchk -drive format=raw,file=$1
+		qemu-system-x86_64 \
+			-display curses \
+			-no-fd-bootchk \
+			-drive format=raw,file=$1 \
+			-m "size=8128,slots=0,maxmem=$((8128*1024*1024))"
+	else
+	cat <<EOF
+usage:
+	chili-qemurunraw file.img
+EOF
+	fi
+}
+#			-k br-abnt2
+#        -smp 18 \
+
+chili-qemu-img-create() {
+	local image=$1
+	local type=$2
+	local size=$3
+
+	if test $# -ge 3; then
+		qemu-img create $image -f $type $size
+		qemu-img info $image
+	else
+	cat <<EOF
+usage:
+	chili-qemu-img-create filename type size
+	=========================================
+	${pink}Raw${reset} 		Raw is default format if no specific format is specified while creating disk images.
+	Qcow2		Qcow2 is opensource format developed against Vmdk and Vdi. Qcow2 provides features like compression,
+	Qed		Qed is a disk format provided by Qemu. It provides support for overlay and sparse images. Performance of Qed is better than Qcow2 .
+	Qcow		Qcow is predecessor of the Qcow2.
+	Vmdk		Vmdk is default and popular disk image format developed and user by VMware.
+	Vdi		Vdi is popular format developed Virtual Box. It has similar features to the Vmdk and Qcow2
+	Vpc		Vps is format used by first generation Microsoft Virtualization tool named Virtual PC. It is not actively developed right now.
+	=========================================
+	'size' is the disk image size in bytes. Optional suffixes
+	'k' or 'K' (kilobyte, 1024),
+	'M' (megabyte, 1024k),
+	'G' (gigabyte, 1024M),
+	'T' (terabyte, 1024G),
+	'P' (petabyte, 1024T) and
+	'E' (exabyte, 1024P)
+
+	chili-qemu-img-create chili.img raw 10M
+	chili-qemu-img-create debian.qcow2 qcow2 10G
+EOF
+	fi
+}
+
+chili-qemu-img-convert-raw-to-qcow2() {
+	if test $# -ge 2; then
+		qemu-img convert -f raw $1 -O qcow2 $2
+	else
+	cat <<EOF
+usage:
+	chili-qemu-img-convert-img-to-qcow2 hda0.img hda1.qcow2
+EOF
+	fi
+}
+
+chili-qemu-img-convert-vdi-to-raw() {
+	if test $# -ge 2; then
+		qemu-img convert -f vdi -O raw $1 $2
+	else
+	cat <<EOF
+usage:
+	chili-qemu-img-convert-vdi-to-raw image.vdi image.img
+EOF
+	fi
+}
+
+chili-qemurunqcow2() {
+#		-hda $1				\
+	qemu-system-x86_64 	\
+      -drive file=$1,if=none,id=disk1 \
+      -device ide-hd,drive=disk1,bootindex=1 \
+      -m "size=8192,slots=0,maxmem=$((8192*1024*1024))" \
+		-k br-abnt2 		\
+      -vga virtio 		\
+		-smp 16 				\
+      -machine type=q35,smm=on,accel=kvm,usb=on \
+		-enable-kvm
+}
+
+# 		  -display curses 	\
+#        -vga virtio \
+chili-qemurunfile() {
+	if test $# -ge 1; then
+ 		  sudo qemu-system-x86_64 \
+ 		  -no-fd-bootchk		\
+        -drive file=${1},if=none,id=disk1 \
+        -device ide-hd,drive=disk1,bootindex=1 \
+		  -hda /archlive/qemu/hda.img \
+        -hdb /archlive/qemu/hdb.img \
+        -hdc /archlive/qemu/hdc.img \
+        -hdd /archlive/qemu/hdd.img \
+        -m "size=8128,slots=0,maxmem=$((8128*1024*1024))" \
+        -name archiso,process=archiso_0 \
+        -device virtio-scsi-pci,id=scsi0 \
+        -audiodev pa,id=snd0,server=localhost \
+        -device ich9-intel-hda \
+        -device hda-output,audiodev=snd0 \
+        -device virtio-net-pci,romfile=,netdev=net0 -netdev user,id=net0,hostfwd=tcp::60022-:22 \
+        -global ICH9-LPC.disable_s3=1 \
+        -machine type=q35,smm=on,accel=kvm,usb=on,pcspk-audiodev=snd0 \
+        "${qemu_options[@]}" \
+         -smp 36 \
+         -enable-kvm \
+        -serial stdio
+	else
+	cat <<EOF
+usage:
+	chili-qemurunfile file.img
+	chili-qemurunfile file.qcow2
+EOF
+	fi
+}
+#	     -vga virtio 		\
+#        -display "sdl" \
+#		  -device qxl-vga,vgamem_mb=128 \
+#        -k br-abnt2 \
+
+chili-qemufilerun()	{ chili-qemurunfile $@ ;}
+filerun()				{ chili-qemurunfile $@; }
+fr()						{ chili-qemurunfile $@; }
+frr()						{ chili-qemurunimg $@; }
+fileinfo()				{ qemu-img info $@; }
+export -f fr
+export -f chili-qemurunfile
+
+frc() {
+	if test $# -ge 1; then
+ 		  qemu-system-x86_64 \
+ 		  -no-fd-bootchk		\
+        -drive file=${1},if=none,id=disk1 \
+        -device ide-hd,drive=disk1,bootindex=1 \
+		  -hda /archlive/qemu/hda.img \
+        -hdb /archlive/qemu/hdb.img \
+        -hdc /archlive/qemu/hdc.img \
+        -hdd /archlive/qemu/hdd.img \
+        -m "size=8128,slots=0,maxmem=$((8128*1024*1024))" \
+        -name archiso,process=archiso_0 \
+        -device virtio-scsi-pci,id=scsi0 \
+        -audiodev pa,id=snd0,server=localhost \
+        -device ich9-intel-hda \
+        -device hda-output,audiodev=snd0 \
+        -device virtio-net-pci,romfile=,netdev=net0 -netdev user,id=net0,hostfwd=tcp::60022-:22 \
+        -global ICH9-LPC.disable_s3=1 \
+        -machine type=q35,smm=on,accel=kvm,usb=on,pcspk-audiodev=snd0 \
+  	  	  -display curses    \
+	      "${qemu_options[@]}" \
+         -smp 36 \
+         -enable-kvm \
+        -serial stdio
+	else
+	cat <<EOF
+usage:
+	chili-qemurunfile file.img
+	chili-qemurunfile file.qcow2
+EOF
+	fi
+}
+
+frc_old() {
+	if test $# -ge 1; then
+ 		  qemu-system-x86_64 \
+	  	  -display curses    \
+        -m "size=8128,slots=0,maxmem=$((8128*1024*1024))" \
+        -hda ${1} \
+        -smp 18 \
+        -enable-kvm
+	else
+	cat <<EOF
+usage:
+	rfn hda.qcow2
+	rfn hdb.img
+EOF
+	fi
+}
+
+rf() {
+	if test $# -ge 1; then
+ 		  qemu-system-x86_64 \
+        -m "size=8128,slots=0,maxmem=$((8128*1024*1024))" \
+        -hda ${1} \
+        -smp 18 \
+        -enable-kvm
+	else
+	cat <<EOF
+usage:
+	rf hda.qcow2
+	rf hdb.img
+EOF
+	fi
+}
+
+chili-qemurunimg() {
+	if test $# -ge 1; then
+ 		  qemu-system-x86_64 \
+        -drive file=${1},format=raw,if=none,id=disk1 \
+        -device ide-hd,drive=disk1,bootindex=1 \
+        -m "size=8128,slots=0,maxmem=$((8128*1024*1024))" \
+        -k br-abnt2 \
+        -name archiso,process=archiso_0 \
+        -device virtio-scsi-pci,id=scsi0 \
+        -display "sdl" \
+        -vga virtio \
+        -audiodev pa,id=snd0,server=localhost \
+        -device ich9-intel-hda \
+        -device hda-output,audiodev=snd0 \
+        -device virtio-net-pci,romfile=,netdev=net0 -netdev user,id=net0,hostfwd=tcp::60022-:22 \
+        -machine type=q35,smm=on,accel=kvm,usb=on,pcspk-audiodev=snd0 \
+        -global ICH9-LPC.disable_s3=1 \
+        -smp 16 \
+        -enable-kvm \
+        "${qemu_options[@]}" \
+        -serial stdio
+	else
+	cat <<EOF
+usage:
+	qemurun hda.img
+	qemurun hdb.img
+EOF
+	fi
+}
+
+chili-qemu-dos() {
+	#!/bin/bash
+	#qemu-img create -f qcow2 /home/vcatafesta/Downloads/qemu/dos7.qcow2 1G
+	#qemu-img info /home/vcatafesta/Downloads/qemu/dos7.qcow2
+	#qemu-system-x86_64 -hda dos7.qcow2 -cdrom dos71cd.iso -boot d
+	#qemu-system-x86_64 -enable-kvm -m 2048 -name 'UBUNTU 17.10' -boot d -hda ubuntu17.qcow2 -cdrom ubuntu-17.10-desktop-amd64.iso
+	#qemu-system-x86_64 -hda /home/vcatafesta/Downloads/qemu/dos7.qcow2
+	#qemu-system-x86_64 -enable-kvm -m 1 -name 'Microsoft MSDO 7.1' -hda /home/vcatafesta/Downloads/qemu/dos7.qcow2
+	qemu-system-x86_64 -m 128 -name 'Microsoft MSDO 7.1' -hda /home/vcatafesta/Downloads/qemu/dos7.qcow2
+}
+
+criartap() {
+	#sudo apt-get install uml-utilities
+	#criar ponte
+	sudo modprobe tun
+	sudo tunctl -t tap0
+	sudo ifconfig tap0 0.0.0.0 promisc up
+	sudo ifconfig enp3s0 0.0.0.0 promisc up
+	sudo brctl addbr br0
+	sudo brctl addif br0 tap0
+	#sudo brctl addif br0 enp3s0
+	sudo brctl show
+	sudo ifconfig br0 up
+	sudo ifconfig br0 10.7.7.66/24
+}
+
+vlanubnt() {
+	#telnet 10.0.0.51
+	#ssh 10.0.0.51
+	vconfig add br0 5
+	vconfig add br0 10
+	ifconfig br0.5 x.x.x.x netmask x.x.x.x up
+	ifconfig br0.10 x.x.x.x netmask x.x.x.x up
+}
+
+chili-videoultrahd() {
+		sudo xrandr --newmode "2560x1080_60.00"  230.00  2560 2720 2992 3424  1080 1083 1093 1120 -hsync +vsync
+	sudo xrandr --addmode HDMI-0 2560x1080_60.00
+}
+
+tms() {
+#	journalctl -f
+	dmesg -w -T -x
+}
+
+sr() {
+	sudo systemctl restart $1
+	sudo systemctl status $1
+}
+
+st() {
+	sudo systemctl stop $1
+	sudo systemctl status $1
+}
+
+lsvideo() {
+	echo -e "1. xrandr"
+	sudo xrandr
+	echo
+	echo -e "2. grep -i chipset /var/log/Xorg.0.log"
+	sudo grep -i chipset /var/log/Xorg.0.log
+	echo
+	echo -e "3. lshw -C video"
+	sudo lshw -C video
+	echo
+	echo -e "4. sudo lspci -k | grep -A 2 -E '(VGA|3D)'"
+	sudo lspci -k | grep -A 2 -E '(VGA|3D)'
+	echo -e '5. sudo lspci -nnkd::0300'
+	sudo lspci -nnkd::0300
+}
+export -f lsvideo
+
+ddel3() {
+	find -iname $1 | xargs rm --verbose
+}
+
+stsmb() {
+	sudo systemctl restart smbd
+	sudo systemctl restart nmbd
+	sudo systemctl status smbd
+}
+
+bindmnt() {
+	for i in /dev /dev/pts /proc /sys /run
+	do
+		sudo mkdir -pv $1/$i
+		sudo mount -v -B $i $1/$i
+	done
+}
+
+chroot-lfs() {
+	#export LFS=$1
+	export LFS=/mnt/lfs
+	info $LFS
+	mount -v -t ext4 /dev/sda7 $LFS
+	mkdir -pv $LFS/{dev,proc,sys,run}
+
+	#Creating Initial Device Nodes
+	mknod -m 600 $LFS/dev/console c 5 1
+	mknod -m 666 $LFS/dev/null c 1 3
+
+ 	#Mounting and Populating /dev
+	mount -v --bind /dev $LFS/dev
+	#Mounting Virtual Kernel File Systems
+	mount -v --bind /dev/pts $LFS/dev/pts
+	mount -vt proc proc $LFS/proc
+	mount -vt sysfs sysfs $LFS/sys
+	mount -vt tmpfs tmpfs $LFS/run
+
+	if [ -h $LFS/dev/shm ]; then
+		mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+	fi
+
+	#Entering the Chroot Environment
+	chroot "$LFS" /usr/bin/env -i		\
+	HOME=/root                  		\
+	TERM="$TERM"                		\
+	PS1='(lfs chroot) \u:\w\$ ' 		\
+	PATH=/usr/bin:/usr/sbin				\
+	/bin/bash --login
+}
+
+chrootmount() {
+	sudo mount "$@"
+}
+
+chilichroot() {
+	if test $# -ge 1; then
+		CHROOTDIR="$1"
+		[[ ${CHROOTDIR} = '.' ]] && CHROOTDIR=${PWD}
+		log_wait_msg "Generate dirs in $CHROOTDIR"
+		for i in /proc /sys /dev /dev/pts /dev/shm /run /tmp; do
+			mkdir -pv ${CHROOTDIR}${i}
+		done
+		log_wait_msg "Mounting on $CHROOTDIR"
+		chrootmount proc "${CHROOTDIR}/proc" -t proc -o nosuid,noexec,nodev &&
+		chrootmount sys "${CHROOTDIR}/sys" -t sysfs -o nosuid,noexec,nodev,ro &&
+		chrootmount udev "${CHROOTDIR}/dev" -t devtmpfs -o mode=0755,nosuid &&
+		chrootmount devpts "${CHROOTDIR}/dev/pts" -t devpts -o mode=0620,gid=5,nosuid,noexec &&
+		chrootmount shm "${CHROOTDIR}/dev/shm" -t tmpfs -o mode=1777,nosuid,nodev &&
+		chrootmount /run "${CHROOTDIR}/run" --bind &&
+		chrootmount tmp "${CHROOTDIR}/tmp" -t tmpfs -o mode=1777,strictatime,nodev,nosuid
+		log_wait_msg "Iniciando CHROOT at $CHROOTDIR"
+		sudo chroot ${CHROOTDIR}
+		log_wait_msg "Unbinding $CHROOTDIR"
+		sudo umount -r "${CHROOTDIR}/proc"
+		sudo umount -r "${CHROOTDIR}/sys"
+		sudo umount -r "${CHROOTDIR}/dev/pts"
+		sudo umount -r "${CHROOTDIR}/dev/shm"
+		sudo umount -r "${CHROOTDIR}/dev"
+		sudo umount -r "${CHROOTDIR}/run"
+		sudo umount -r "${CHROOTDIR}/tmp"
+		#sudo grub-install /dev/sdb
+		#sudo update-grub /dev/sdb
+	else
+		printf "ERROR: No chroot directory specified\n"
+	fi
+}
+
+chili-conf() {
+	./configure                 \
+	--prefix=/usr               \
+	--sysconfdir=/etc           \
+	--localstatedir=/var        \
+	--mandir=/usr/man
+	sudo make
+}
+
+chili-conflib() {
+	./configure --prefix=/usr --disable-static &&
+	sudo make
+}
+
+net() {
+	log_info_msg "Iniciando rede"
+	sudo systemctl stop NetworkManager
+	ip addr add 10.0.0.67/21 dev enp0s3
+	ip route add default via 10.0.0.254 dev enp0s3
+	ip route list
+	evaluate_retval
+}
+
+netsysv() {
+	log_info_msg "Iniciando rede"
+	/etc/init.d/networkmanager stop
+	ip addr add 10.0.0.67/21 dev enp0s3
+	ip route add default via 10.0.0.254 dev enp0s3
+	ip route list
+	evaluate_retval
+}
+
+gpull() {
+	log_wait_msg "${blue}Iniciando git pull ${reset}"
+	sudo git config credential.helper store
+#	sudo git config pull.ff only
+#	sudo git pull
+	sudo git pull --no-ff
+}
+
+gpush() {
+	log_wait_msg "${red}Iniciando git push ${reset}"
+	sudo git config credential.helper store
+#	sudo git add .
+	sudo git add -A
+	sudo git commit -m "$(date) Vilmar Catafesta (vcatafesta@gmail.com)"
+	sudo git push
+}
+
+gto() {
+	log_wait_msg "${red}Mudando para ${reset}: $1"
+	git checkout $1
+}
+
+gclean(){
+	#Execute o seguinte comando para fazer backup do seu branch atual:
+	sudo git branch backup_branch
+	#Execute o seguinte comando para criar um novo branch a partir do atual, mas sem nenhum histórico de commits:
+	sudo git checkout --orphan new_branch
+	#Agora, todos os arquivos do projeto aparecerão como "untracked". Adicione todos eles ao staging area com o comando:
+	sudo git add .
+	#Comite os arquivos com uma mensagem de confirmação:
+	sudo git commit -m "Initial commit"
+	#Finalmente, sobrescreva o branch atual com o novo branch criado:
+	sudo git branch -M new_branch
+}
+
+cpd() {
+	TITLE='Copiando...'
+	MSG='Copiando o diretório $ORIGEM para $DESTINO'
+	INTERVALO=1       # intervalo de atualização da barra (segundos)
+	PORCENTO=0        # porcentagem inicial da barra
+	#................................................................
+	ORIGEM="${1%/}"
+	DESTINO="${2%/}"
+	#................................................................
+	die()    { echo "Erro: $*" ; }
+	sizeof() { du -s "$1" | cut -f1; }
+	running(){ ps $1 | grep $1 >/dev/null; }
+
+	#................................................................
+
+	# tem somente dois parâmetros?
+	[ "$2" ] || die "Uso: $0 dir-origem dir-destino"
+
+	# a origem e o destino devem ser diretórios
+	#[ -d "$ORIGEM"  ] || die "A origem '$ORIGEM' deve ser um diretório"
+	#[ -d "$DESTINO" ] || die "O destino '$DESTINO' deve ser um diretório"
+
+	# mesmo dir?
+	[ "$ORIGEM" = "$DESTINO" ] &&
+		die "A origem e o destino são o mesmo diretório"
+
+	# o diretório de destino está vazio?
+	DIR_DESTINO="$DESTINO/${ORIGEM##*/}"
+	[ -d "$DIR_DESTINO" ] && [ $(sizeof $DIR_DESTINO) -gt 4 ] &&
+		die "O dir de destino '$DIR_DESTINO' deveria estar vazio"
+
+	#................................................................
+
+	# expansão das variáveis da mensagem
+	MSG=$(eval echo $MSG)
+
+	# total a copiar (em bytes)
+	TOTAL=$(sizeof $ORIGEM)
+
+	# início da cópia, em segundo plano
+	cp $ORIGEM $DESTINO &
+	CPPID=$!
+
+	# caso o usuário cancele, interrompe a cópia
+	trap "kill $CPPID" 2 15
+
+	#................................................................
+
+	# loop de checagem de status da cópia
+	(
+		# enquanto o processo de cópia estiver rodando
+		while running $CPPID; do
+			# quanto já foi copiado?
+			COPIADO=$(sizeof $DIR_DESTINO)
+			# qual a porcentagem do total?
+			PORCENTAGEM=$((COPIADO*100/TOTAL))
+			# envia a porcentagem para o dialog
+			echo $PORCENTAGEM
+			# aguarda até a próxima checagem
+			sleep $INTERVALO
+		done
+		# cópia finalizada, mostra a porcentagem final
+		echo 100
+	) | dialog --title "$TITLE" --gauge "$MSG" 8 40 0
+	#................................................................
+	#echo OK - Diretório copiado
+}
+
+distro() {
+	tar -cvpJf 					\
+	balcao.tar.xz 	        	\
+	--exclude=/mnt          \
+	--exclude=/usr/src	 	\
+	--exclude=/proc		 	\
+	--exclude=/dev		 		\
+	--exclude=/sys		 		\
+	--exclude=*.bak 			\
+	--exclude=*.xz				\
+	/
+}
+
+remountpts() {
+	log_info_msg "Desmontando: sudo umount -rl /dev/pts"
+	sudo umount -rl /dev/pts
+	evaluate_retval
+	log_info_msg "Remontando: sudo mount devpts /dev/pts -t devpts"
+	sudo mount devpts /dev/pts -t devpts
+	evaluate_retval
+}
+
+backup() {
+	sl
+	mkdir -p /home/vcatafesta/github
+	mkdir -p /home/vcatafesta/sci/src.linux
+	rsync --progress -Cravzp --rsh='ssh -l vcatafesta' vcatafesta@10.0.0.66:/home/vcatafesta/sci/src.linux/ /home/vcatafesta/sci/src.linux/
+	rsync --progress -Cravzp --rsh='ssh -l vcatafesta' vcatafesta@10.0.0.66:/home/vcatafesta/sci/include/ /home/vcatafesta/sci/include/
+	rsync --progress -Cravzp --rsh='ssh -l vcatafesta' vcatafesta@10.0.0.66:/home/vcatafesta/github/LetoDBf/ /home/vcatafesta/github/LetoDBf/
+}
+
+tolfs() {
+	export LFS=/mnt/lfs
+	mkdir -pv $LFS
+	mount -v -t ext4 /dev/sdb4 $LFS
+	swapon =v /dev/sdb3
+	mkdir -v $LFS/sources
+	chmod -v a+wt $LFS/sources
+	mkdir -v $LFS/tools
+	ln -sv $LFS/tools /
+	groupadd lfs
+	useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+	passwd lfs
+	chown -v lfs $LFS/tools
+	chown -v lfs $LFS/sources
+	su - lfs
+}
+
+inst() {
+	local false=1
+	local true=0
+	local lgenerate=$false
+	BUILDDIR=/lfs/build
+
+	log_wait_msg "Criando diretorios de trabalho..."
+	mkdir -p $BUILDDIR
+	pkgname=$1
+	_pkgname=$1
+	pkgver=$2
+	pkgrel=$DESC_BUILD
+	PKG=$1-$2
+	test -d $BUILDDIR/$PKG || mkdir -p $BUILDDIR/$PKG
+
+	if [ "${3}" = "G" ]; then
+		lgenerate=$true
+	fi
+
+	log_wait_msg "Instalando pacote em $BUILDIR/$PKG..."
+	if [ $lgenerate = $false ]; then
+		make -j1 install DESTDIR=$BUILDDIR/$PKG/
+		log_wait_msg "Striping arquivos..."
+		strip -s $BUILDDIR/$PKG/usr/bin/* > /dev/null 2>&1
+		strip -s $BUILDDIR/$PKG/usr/sbin/* > /dev/null 2>&1
+
+		log_wait_msg "Gziping arquivos..."
+		pushd $BUILDDIR/$PKG
+ 		find -name '*[0-9]' -type f -exec gzip -9 -f {} \;
+ 		popd
+	fi
+
+	log_wait_msg "Criando pacote..."
+	cd $BUILDDIR/$PKG/
+
+	if [ "$3" = "" ]; then
+        banana -g "$PKG-${DESC_BUILD}"
+        cd $BUILDDIR/$PKG/info/
+        #nano desc
+    fi
+    if [ $lgenerate = $true ]; then
+        banana -g "$PKG-${DESC_BUILD}"
+    fi
+
+	cd $BUILDDIR/$PKG/
+	export l=$BUILDDIR/$PKG
+	export pkgdir=$BUILDDIR/$PKG
+   alias l="cd $l"
+   if [ $lgenerate = $false ]; then
+   	banana -c $PKG-${DESC_BUILD}.chi
+   fi
+}
+
+build() {
+	export r=$PWD
+	export srcdir=${PWD#/} srcdir=/${srcdir%%/*}
+	alias r="cd $r"
+	pkg=$(echo $PWD | sed 's/\// /g' | awk '{print $NF}'|sed 's/-/_/g'| sed 's/\(.*\)_/\1 /')
+	arr=($pkg)
+   [[ ${#arr[*]} -gt 2 ]] && pkg="${arr[0]}_${arr[1]} ${arr[2]}"
+	log_success_msg2 "Criando pacote... $pkg"
+	inst $pkg
+	evaluate_retval
+}
+
+gen() {
+	export r=$PWD
+	export srcdir=${PWD#/} srcdir=/${srcdir%%/*}
+	alias r="cd $r"
+	pkg=$(echo $PWD | sed 's/\// /g' | awk '{print $NF}'|sed 's/-/_/g'| sed 's/\(.*\)_/\1 /')
+	arr=($pkg)
+	[[ ${#arr[*]} -gt 2 ]] && pkg="${arr[0]}_${arr[1]} ${arr[2]}"
+	log_success_msg2 "Criando pacote... $pkg"
+	inst $pkg "G"
+	evaluate_retval
+}
+
+makepy() {
+	local filepy="ex.py"
+   log_wait_msg "Aguarde, criando arquivo $1..."
+   if [ "${1}" != "" ]; then
+   	filepy="${1}"
+   fi
+
+   cat > ${filepy} << "EOF"
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+EOF
+	chmod +x ${filepy}
+	log_success_msg2 "Feito! ${cyan}'$filepy' ${reset}criado on $PWD"
+}
+
+mkpy()       { makepy "$@"; }
+makescript() {	makebash "$@"; }
+mks()        {	makebash "$@"; }
+
+makebash() {
+	prg='script.sh'
+	if test $# -ge 1; then
+		prg="$1"
+		[[ -e "$prg" ]] && { msg "${red}Arquivo $1 já existe. Abortando..."; return; }
+	fi
+   log_wait_msg "Aguarde, criando arquivo $prg on $PWD"
+   cat > "$prg" << "EOF"
+#!/usr/bin/env bash
+
+EOF
+   sudo chmod +x $prg
+	#echo $(replicate '=' 80)
+   #cat $prg
+	#echo $(replicate '=' 80)
+	log_success_msg2 "Feito! ${cyan}'$prg' ${reset}criado on $PWD"
+}
+
+mkcpp() { make_cpp_file "$@"; }
+
+make_cpp_file() {
+	prg='main.cpp'
+	if test $# -ge 1; then
+		prg="$1"
+		[[ -e "$prg"     ]] && { msg "${red}Arquivo $1 já existe. Abortando..."; return; }
+		[[ -e "$prg.cpp" ]] && { msg "${red}Arquivo $1.cpp já existe. Abortando..."; return; }
+	fi
+	#! [[ "$prg" =~ ".cpp" ]]   && prg+=".cpp"
+	[[ ${prg: -4} != ".cpp" ]] && prg+=".cpp"
+   log_wait_msg "Aguarde, criando arquivo $prg on $PWD"
+   cat > "$prg" <<- EOF
+// $prg, Copyright (c) 2023 Vilmar Catafesta <vcatafesta@gmail.com>
+#ifdef __cplusplus
+	#include <iostream>  // std::cout
+	#include <cstddef>   // std::size_t
+	#include <valarray>  // std::valarray, std::slice
+	#include <string>
+	#include <cctype>
+	#include <array>
+	#include <algorithm>
+	#include <functional>
+	#include <map>
+	#include <vector>
+	#include <chrono>
+	#include <thread>
+#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <signal.h>
+#include <sys/wait.h>
+#ifdef _WIN32
+   #include <Windows.h>
+	#include <dos.h>
+#else
+   #include <unistd.h>
+#endif
+#include "color.h"
+
+#ifdef __cplusplus
+using namespace std;
+#endif /* __cplusplus */
+
+#if defined( __GNUC__ )
+//#pragma GCC diagnostic ignored "-Wwrite-strings"
+//#pragma GCC diagnostic ignored "-Wunused-parameter"
+//#pragma GCC diagnostic ignored "-Wuninitialized"
+//#pragma GCC diagnostic ignored "-Wunused-function"
+//#pragma GCC diagnostic ignored "-Wduplicated-cond"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wformat"
+#pragma GCC diagnostic ignored "-Wformat-extra-args"
+#endif
+
+#define CURSOR(top, bottom) 	(((top) << 8) | (bottom))
+#define getrandom(min, max)	((rand()%(int)(((max) + 1)-(min)))+ (min))
+
+//=================================================================
+
+void qqout() {}
+template <typename T, typename... Args>
+void qqout(T arg, Args... args) {
+   std::cout << arg << "";
+   qqout(args...);
+}
+
+void qout() { std::cout << '\n'; }
+template <typename T, typename... Args>
+void qout(T arg, Args... args) {
+   std::cout << arg << "";
+   qout(args...);
+}
+
+template <class T, typename X>
+std::string replicate(T ch, X tam) {
+   std::string replicate;
+   replicate.assign(tam, ch);
+   return replicate;
+}
+
+size_t my_strlen(char *c) {
+   size_t i = 0;
+   while(*c != NULL) {
+      c++;
+      i++;
+   }
+   return i;
+}
+
+size_t LenArray(char **a) {
+   size_t i = 0;
+   //while(*(a+i)){
+   while( a[i] ){
+      i++;
+   }
+   return i;
+}
+
+//=================================================================
+
+int main(int argc, char **argv) {
+   qout(RED,"\u2630 temp.cpp, Copyright \u24d2  2023 Vilmar Catafesta <vcatafesta@gmail.com>\u21b4", RESET, '\n');
+
+   qout(GREEN, "Hello, World!", RESET, '\n');
+   return EXIT_SUCCESS;
+}
+
+EOF
+	#echo $(replicate '=' 80)
+   #cat $prg
+	#echo $(replicate '=' 80)
+   log_success_msg2 "Feito! ${cyan}'$prg' ${reset}criado on $PWD"
+}
+
+mkc() { make_c_file "$@"; }
+
+make_c_file() {
+	prg='main.c'
+	if test $# -ge 1; then
+		prg="$1"
+		[[ -e "$prg"   ]] && { msg "${red}Arquivo $1 já existe. Abortando..."; return; }
+		[[ -e "$prg.c" ]] && { msg "${red}Arquivo $1.c já existe. Abortando..."; return; }
+	fi
+	#! [[ "$prg" =~ ".c" ]]   && prg+=".c"
+	[[ ${prg: -2} != ".c" ]] && prg+=".c"
+   log_wait_msg "Aguarde, criando arquivo $prg on $PWD"
+	cat > "$prg" <<- EOF
+// $prg, Copyright (c) 2023 Vilmar Catafesta <vcatafesta@gmail.com>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+
+#define BLACK        "\033[30m"
+#define RED          "\033[31m"
+#define GREEN        "\033[32m"
+#define YELLOW       "\033[33m"
+#define BLUE         "\033[34m"
+#define MAGENTA      "\033[35m"
+#define CYAN         "\033[36m"
+#define WHITE        "\033[37m"
+#define GRAY         "\033[90m"
+#define LIGHTWHITE   "\033[97m"
+#define LIGHTGRAY    "\033[37m"
+#define LIGHTRED     "\033[91m"
+#define LIGHTGREEN   "\033[92m"
+#define LIGHTYELLOW  "\033[93m"
+#define LIGHTBLUE    "\033[94m"
+#define LIGHTMAGENTA "\033[95m"
+#define LIGHTCYAN    "\033[96m"
+#define RESET        "\033[0m"
+#define BOLD         "\033[1m"
+#define FAINT        "\033[2m"
+#define ITALIC       "\033[3m"
+#define UNDERLINE    "\033[4m"
+#define BLINK        "\033[5m"
+#define INVERTED     "\033[7m"
+#define HIDDEN       "\033[8m"
+
+int main(int argc, char **argv) {
+   printf("%s$prg, Copyright (c) 2023 Vilmar Catafesta <vcatafesta@gmail.com>%s\n\n", RED, RESET);
+   printf("%sHello World\n%s", GREEN, RESET);
+   return EXIT_SUCCESS;
+}
+
+EOF
+	#echo $(replicate '=' 80)
+	#cat $prg
+	#echo $(replicate '=' 80)
+	log_success_msg2 "Feito! ${cyan}'$prg' ${reset}criado on $PWD"
+}
+
+MK() {
+	log_wait_msg "Aguarde, criando arquivo rmake..."
+   cat > rmake << "EOF"
+#!/bin/bash
+	source /etc/bashrc
+   ./configure --prefix=/usr     \
+               --sysconfdir=/etc
+   sudo make
+   #sudo make check
+   sudo make install DESTDIR="/github/ChiliOS/packages/core/${PWD##*/}-1"
+EOF
+	sudo chmod +x rmake
+   log_success_msg2 "Feito!"
+}
+
+MKLIB() {
+	log_wait_msg "Aguarde, criando arquivo rmake..."
+   cat > rmake << "EOF"
+#!/bin/bash
+   source /etc/bashrc
+   ./configure --prefix=/usr --disable-static &&
+   sudo make
+   #sudo make check
+   #sudo make install
+EOF
+	sudo chmod +x rmake
+   log_success_msg2 "Feito!"
+}
+
+MKCMAKE() {
+	log_wait_msg "Aguarde, criando arquivo rmake..."
+   cat > rmake << "EOF"
+#!/bin/bash
+   source /etc/bashrc
+   mkdir build &&
+   cd    build &&
+
+   cmake -DCMAKE_INSTALL_PREFIX=$KF5_PREFIX \
+         -DCMAKE_PREFIX_PATH=$QT5DIR        \
+         -DCMAKE_BUILD_TYPE=Release         \
+         -DBUILD_TESTING=OFF                \
+         -Wno-dev .. &&
+   sudo make
+   #sudo make check
+   #sudo make install
+EOF
+	sudo chmod +x rmake
+   log_success_msg2 "Feito!"
+}
+
+MKX() {
+	log_wait_msg "Aguarde, criando arquivo rmake..."
+   cat > rmake << "EOF"
+#!/bin/bash
+   ./configure $XORG_CONFIG &&
+   sudo make
+   #sudo make check
+   #sudo make install
+EOF
+   sudo chmod +x rmake
+   log_success_msg2 "Feito!"
+}
+
+#export LFS=/mnt/lfs
+#export LFS=/mnt/build_dir
+#export FORCE_UNSAFE_CONFIGURE=1
+#export HOME="/root"
+#export OLDPWD
+#export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin"
+#export PWD="/"
+#export SHLVL="1"
+#export TERM="xterm-256color"
+alias l=$PWD
+alias pkgdir=$PWD
+alias srcdir=${PWD#/} srcdir=/${srcdir%%/*}
+alias r=$OLDPWD
+alias c="cd /sources"
+
+chili-bindlfs() {
+	export LFS=/mnt/build_dir
+   mount -v --bind /dev $LFS/dev
+   mount -vt devpts devpts $LFS/dev/pts -o gid=5,mode=620
+   mount -vt proc proc $LFS/proc
+   mount -vt sysfs sysfs $LFS/sys
+   mount -vt tmpfs tmpfs $LFS/run
+
+   if [ -h $LFS/dev/shm ]; then
+   	mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+   fi
+}
+
+chili-repairdirvar() {
+	log_wait_msg "Iniciando reparo do /var/run..."
+#  exec &> /dev/null
+   mv -f /var/run/* /run/  > /dev/null 2>&1
+   rm -rf /var/run         > /dev/null 2>&1
+   ln -s /run /var/run     > /dev/null 2>&1
+   exec >/dev/tty
+   log_success_msg2 "Feito..."
+}
+
+ex() {
+	if [ -f $1 ] ; then
+   	case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.tar.xz)    tar Jxvf $1     ;;
+            *.lz)        lzip -d -v $1   ;;
+            *.chi)       tar Jxvf $1     ;;
+            *.chi.zst)   tar -xvf $1     ;;
+            *.tar.zst)   tar -xvf $1     ;;
+            *.mz)        tar Jxvf $1     ;;
+            *.cxz)       tar Jxvf $1     ;;
+            *.chi)       tar Jxvf $1     ;;
+            *.tar)       tar xvf $1      ;;
+            *.tbz2)      tar xvjf $1     ;;
+            *.tgz)       tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1      ;;
+            *.rar)       unrar x $1      ;;
+            *.gz)        gunzip $1       ;;
+            *.zip)       unzip $1        ;;
+            *.Z)         uncompress $1   ;;
+            *.7z)        7z x $1         ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+chili-converteOldChiPkgToNewZst() {
+	cfiles=$(ls -1 *.chi)
+	for pkg in $cfiles
+	do
+		echo
+		newpkg=$(echo $pkg|sed 's/_/-/g')
+		log_info_msg "Renomeando $pkg para $newpkg"
+		mv $pkg $newpkg &>/dev/null
+		evaluate_retval
+
+		cnewpkgsemext=$(echo $newpkg|sed 's/.chi//g')
+		log_info_msg "Criando diretorio $cnewpkgsemext"
+		mkdir $cnewpkgsemext &>/dev/null
+		evaluate_retval
+
+		log_info_msg "Extraindo arquivos $newpkg"
+		tar --extract --file $newpkg -C $cnewpkgsemext
+		evaluate_retval
+
+		log_info_msg "Entrando diretorio $cnewpkgsemext"
+		pushd $cnewpkgsemext/ &>/dev/null
+		evaluate_retval
+
+		fetch -g
+		echo -e
+		fetch create
+		echo -e
+		popd &>/dev/null
+	done
+}
+
+chili-removeoldpkgarch() {
+	local nfiles=0
+	local cOldDir=$PWD
+	cd /var/cache/pacman/pkg
+
+	shopt -s nullglob       # enable suppress error message of a command
+	if [ $# -lt 1 ]; then
+		AllFilesPackages=$(ls -1 *.{zst,xz})
+	else
+		AllFilesPackages=$(ls -1 $1*.{zst,xz})
+	fi
+	shopt -u nullglob       # disable suppress error message of a command
+
+	log_wait_msg "wait, working on it..."
+	for pkgInAll in $AllFilesPackages
+	do
+		pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
+		FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
+		FilteredPackages=$FilteredPackages"-"
+		AllFilteredPackages=$(ls -1 $FilteredPackages*.{zst,xz} 2> /dev/null)
+#		AllFilteredPackages=$(ls -1 $FilteredPackages*.zst 2> /dev/null)
+#		AllFilteredPackages="$AllFilteredPackages $(ls -1 $FilteredPackages*.xz 2> /dev/null)"
+		nfiles=0
+
+		for y in ${AllFilteredPackages[*]}
+		do
+			((nfiles++))
+		done
+#		echo -e "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
+		log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
+		if [[ $nfiles > 1 ]]; then
+			for pkg in $AllFilteredPackages
+			do
+				if [[ "$(vercmp $pkgInAll $pkg)" -lt 0 ]]; then
+					maxcol; replicate "=" $?
+					log_info_msg "Removing ${red}OLD ${reset}package ${yellow}$pkgInAll"
+					rm $pkgInAll*  >/dev/null 2>&1
+					evaluate_retval
+					maxcol; replicate "=" $?
+				elif [[ "$(vercmp $pkgInAll $pkg)" -gt 0 ]]; then
+					continue
+				elif [[ "$(vercmp $pkgInAll $pkg)" -eq 0 ]]; then
+					continue
+				fi
+			done
+		fi
+	done
+	cd $cOldDir
+}
+
+
+removeoldpkgchili() { chili-removeoldpkgchili "$@"; }
+chili-removeoldpkgchili() {
+	local arr=
+	local cdir=
+	local nfiles=
+	local pkg=
+	local cOldDir=
+	local AllFilesPackages=
+	local pkg=
+	local pkgInAll=
+	local FilteredPackages=
+	local AllFilteredPackages=
+
+	cd /github/ChiliOS/packages/
+	shopt -s nullglob       # enable suppress error message of a command
+
+	for cdir in {a..z}
+	do
+		#echo -e "${white}Verifying packages in ${green}$cdir"
+		cOldDir=$PWD
+		pkgInAll=
+		FilteredPackages=
+		AllFilesPackages=
+		AllFilteredPackages=
+
+		if [ $# -lt 1 ]; then
+			pushd $cdir >/dev/null 2>&1
+			AllFilesPackages=$(ls -1 *.{zst,xz})
+		else
+			#cdir=${1:0:1}
+			pushd $cdir >/dev/null 2>&1
+			AllFilesPackages=$(ls -1 *.zst | grep ^$1)
+		fi
+
+		#log_wait_msg "wait, working on it..."
+		for pkgInAll in $AllFilesPackages
+		do
+			sh_splitpkg ${pkgInAll}
+			#pkgtar=$(echo $pkgInAll |sed 's/\// /g'|awk '{print $NF}'|sed 's/-x86_64.chi.\|zst\|xz//g'|sed 's/-any.chi.\|zst\|xz//g'|sed 's/.chi.\|zst\|xz//g'|sed 's/1://g'|sed 's/2://g')
+			#FilteredPackages=$(echo $pkgtar | sed 's/\(.*\)-\(.*-\)/\1*\2/' |cut -d* -f1)
+			#FilteredPackages=$FilteredPackages"-"
+
+			FilteredPackages=${aPKGSPLIT[$PKG_BASE]}
+			AllFilteredPackages=$(ls -1 $FilteredPackages*.{zst,xz} 2> /dev/null)
+			#info "$pkgInAll \n $FilteredPackages \n $AllFilteredPackages"
+			pkg=
+  			arr=(${AllFilteredPackages[*]})
+		  	nfiles=${#arr[*]}
+
+			#log_wait_msg "${white}Verifying package ${purple}($nfiles) ${green}$pkgInAll"
+			if [[ $nfiles -gt 1 ]]; then
+				log_wait_msg "${white}Verifying candidate package ${purple}($nfiles) ${green}$FilteredPackages"
+				for pkg in $AllFilteredPackages
+				do
+					#info "$pkgInAll \n$pkg"
+					if [[ "$(vercmp $pkgInAll $pkg)" -lt 0 ]]; then
+						#maxcol; replicate "=" $?
+						log_info_msg "Removing ${red}OLD ${reset}package ${yellow}$pkgInAll"
+						rm $pkgInAll*  >/dev/null 2>&1
+						evaluate_retval
+						#maxcol; replicate "=" $?
+						if [[ $nfiles -eq 2 ]]; then
+							break
+						fi
+					elif [[ "$(vercmp $pkgInAll $pkg)" -gt 0 ]]; then
+						continue
+					elif [[ "$(vercmp $pkgInAll $pkg)" -eq 0 ]]; then
+						continue
+					fi
+				done
+			fi
+		done
+		popd >/dev/null 2>&1
+	done
+	shopt -u nullglob       # disable suppress error message of a command
+}
+export -f removeoldpkgchili
+export -f chili-removeoldpkgchili
+
+chili-calc() {
+	awk 'BEGIN { printf "%.'${2:-0}'f\n" '"$1"'}'
+}
+
+chili-copiapkg() { copiapkg "$@"; }
+copiapkg() {
+	for letra in {a..z}
+	do
+		log_info_msg "Copiando arquivos iniciados com a letra: $letra para diretorio /github/ChiliOS/packages/$letra/"
+		sudo cp $letra* /github/ChiliOS/packages/$letra/ &>/dev/null
+#		sudo cp $letra* /var/cache/fetch/archives/ &>/dev/null
+#		log_info_msg "Copiando arquivos iniciados com a letra: $letra para diretorio /mnt/c/github/ChiliOS/packages/$letra/"
+#		cp $letra* /mnt/c/github/ChiliOS/packages/$letra/ &>/dev/null
+		evaluate_retval
+	done
+}
+
+dw() {
+	sudo pacman -Sw $* --noconfirm --quiet
+	sudo paccache -k1 -r
+	if [ $? == 0 ]; then
+		sudo fetch -Sa $* -f
+	fi
+}
+
+mput() {
+	for x in {a..z}
+	do
+		log_info_msg "Trabalhando em ${x}"
+		echo
+    	git add ${x}* 2>&1>/dev/null
+    	git commit -m "upgrade" 2>&1>/dev/null
+		git push 2>&1>/dev/null
+		evaluate_retval
+	done
+}
+
+# Make your directories and files access rights sane.
+sanitize() {
+	chmod -R u=rwX,g=rX,o= "$@"
+}
+
+sc1() {
+	pid=`cat /run/$1.pid 2>/dev/null`
+	if [ -n "${pid}" ]; then
+		statusproc /usr/sbin/$1
+	else
+		service $1 start
+	fi
+}
+
+services() {
+	local idx=0
+	local adir=
+	local adaemon=
+
+	servers=('sshd' 'unbound' 'nginx' 'cups')
+	dirs=('/run' '/run' '/run' '/run/cups')
+	daemons=('sshd' 'unbound' 'nginx' 'cupsd')
+
+	for srv in "${servers[@]}"
+	do
+		adir=${dirs[$idx]}
+		adaemon=${daemons[$idx]}
+		pid=`cat $adir/$adaemon.pid 2>/dev/null`
+		if [ -n "${pid}" ]; then
+			statusproc /usr/sbin/$srv
+		else
+			service $srv start
+		fi
+		(( idx++ ))
+	done
+}
+export -f services
+
+renane() {
+	for f in $1;
+	do
+		mv "$f" ${f/$1/$2 }
+	done
+}
+
+zerobyte() {
+	for f in "$1" ; do >| "$f" ; done
+}
+export -f zerobyte
+
+xwinserver() {
+	# Windows XSrv config
+	export $(dbus-launch)
+	export LIBGL_ALWAYS_INDIRECT=1
+	export WSL_VERSION=$(wsl.exe -l -v | grep -a '[*]' | sed 's/[^0-9]*//g')
+	export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
+	export DISPLAY=$WSL_HOST:0
+}
+
+pkgsemdesc() {
+	local nconta=0
+
+	for letra in {a..z}; do
+		pushd /github/ChiliOS/packages/$letra/ &>/dev/null
+		for i in *.zst; do
+			if ! test -e $i.desc; then
+				(( nconta++ ))
+				printf "${red}%04d ${yellow}$i\n" $nconta
+			fi
+		done
+		popd &>/dev/null
+	done
+	printf "${green}Done!\n"
+}
+export -f pkgsemdesc
+
+makeramdrive() {
+	sudo modprobe zram
+	sudo umount /dev/ram0
+	sudo mknod -m 0777 /dev/ram0 b 1 0
+	sudo dd if=/dev/zero of=/dev/ram0
+	sudo mkfs.ext4 /dev/ram0 -L RAMDRIVE
+	sudo mkdir /run/ramdrive
+	sudo mount /dev/ram0 /run/ramdrive
+	sudo ln -sf /run/ramdrive /ram
+	sudo systemctl daemon-reload
+
+#	sudo vgcreate VG0 /dev/ram0
+#	sudo vgextend VG0 /dev/ram1
+#	sudo lvcreate -L 8G -n DADOS VG0
+#	sudo mkfs.ext4 /dev/mapper/VG0-DADOS
+#	sudo mount /dev/mapper/VG0-DADOS /run/ramdrive
+}
+
+#Criando um novo repositório por linha de comando
+makegit() { chili-makegitcodeberg "$@"; }
+chili-makegitcodeberg() {
+	touch README.md
+	git init
+	git checkout -b main
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://codeberg.org/vcatafesta/chili.git
+	git push -u origin main
+}
+
+#Realizando push para um repositório existente por linha de comando
+makepush() { chili-makepush "$@"; }
+chili-makepush() {
+	git remote add origin https://codeberg.org/vcatafesta/chili.git
+	git push -u origin main
+}
+
+ssherror() { chili-correctionssherror "$@"; }
+chili-correctionssherror() {
+	{
+	echo -n 'Ciphers '
+	ssh -Q cipher | tr '\n' ',' | sed -e 's/,$//'; echo
+	echo -n 'MACs '
+	ssh -Q mac | tr '\n' ',' | sed -e 's/,$//'; echo
+	echo -n 'HostKeyAlgorithms '
+	ssh -Q key | tr '\n' ',' | sed -e 's/,$//'; echo
+	echo -n 'KexAlgorithms '
+	ssh -Q kex | tr '\n' ',' | sed -e 's/,$//'; echo
+	} >> ~/.ssh/config
+}
+
+hsync() { chili-hsync "$@"; }
+chili-hsync() {
+	rsync --progress -Cravzp --rsh='ssh -l u356719782 -p 65002'	\
+	/github/ChiliOS/packages/core/										\
+	u356719782@185.211.7.40:/home/u356719782/domains/chililinux.com/public_html/packages/core/
+}
+
+sh_ascii-lines() {
+	if [[ "$LANG" =~ 'UTF-8' ]]; then
+		export NCURSES_NO_UTF8_ACS=0
+	else
+		export NCURSES_NO_UTF8_ACS=1
+	fi
+}
+
+chili-mountmazon() {
+	cd /root/tmp/
+	losetup -P -f --show mazon.img
+	mount /dev/loop11p4 /mnt/tmp
+	cd /mnt/tmp
+	ls -la
+}
+
+chili-mountvoid() {
+	sudo losetup -P -f --show /root/tmp/void.img
+	sudo losetup
+}
+
+virtualbox-add-nic() {
+	for nic in {2..10}; do
+		VBoxManage modifyvm "chr" --nic$nic bridged --nictype$nic 82540EM --bridgeadapter$nic enp6s0
+	done
+}
+
+fcopy() {
+	find . -name "*$1*" -exec cp -v {} /tmp \;
+}
+
+glibc-version() {
+	sudo ldd --version
+	sudo ldd `which ls` | grep libc
+	sudo /lib/libc.so.6
+}
+
+chili-mkfstab() {
+	#cp /proc/mounts >> /etc/fstab
+	sed 's/#.*//' /etc/fstab | column --table --table-columns SOURCE,TARGET,TYPE,OPTIONS,PASS,FREQ --table-right PASS,FREQ
+}
+
+chili-mapadd() { sudo kpartx -uv $1; }
+chili-mapdel() { sudo kpartx -dv $1; }
+
+fid() {
+	if [ $# -eq 0 ]; then
+		echo 'Uso: fid "*.c"'
+		echo '     fid "*"'
+		echo $(find . -iname "*" -type f | wc -l)
+		return
+	fi
+	filepath=$1
+#	echo Arquivos: $(ls -la |grep '^-'|wc -l)"
+	echo $(find . -type f -iname "$filepath" | wc -l)
+}
+
+ff() {
+	if [ $# -eq 0 ]; then
+		echo 'Uso: ff "*.c"'
+		echo '     ff "*.c" | xargs commando'
+		echo '     ff "*.c" | xargs cp -v /tmp'
+		sudo find . -type f -iname '*'"$*"'*' -ls
+	fi
+	filepath=$1
+	sudo find . -type f,d,l -name "$filepath" -ls
+}
+
+ffe() {
+	[ "$1" ] || {
+		echo "Uso: ffe 'grep search'   | xargs comando";
+		echo "     ffe 'grep search";
+		echo "     ffe 'ELF|ASCII|MP4' | xargs rm -fv";
+		echo "     ffe 'ELF|ASCII|MP4' | xargs cp -v /tmp"; return;
+	}
+#	sudo find . -type f,d,l -exec file {} + | grep -iE '(jpe?g|jpg|wav|mp3|MPEG)' | cut -d: -f1
+	sudo find . -type f,d,l -exec file {} + | grep -iE "($1)" | cut -d: -f1
+}
+
+ffs() {
+	[ "$1" ] || {
+		echo "Uso: ffs 'search'              '*.doc' | xargs comando"
+		echo "     ffs 'def |function '      '*.prg'"
+		echo "     ffs '#include'            '*.*'"
+		echo "     ffs 'search|search|texto' '*.txt' | xargs rm -fv"
+		echo "     ffs 'ELF|ASCII|MP4'       '*.doc' | xargs cp -v /tmp"
+		return;
+	}
+#	sudo find . -type f -iname '*'"$2"'*' -exec grep --text -iE "($1)" {} +;
+	sudo grep -r --color=auto -n -iE "($1)" $2;
+	sudo find . -type f -iname '*'"$2"'*' -exec grep --color=auto -n -iE "($1)" {} +;
+}
+
+xcopynparallel() {
+#	find $1 | parallel -j+0 --dryrun cp -Rpvan {} $2
+	find $1 | parallel -j+0 cp -Rpvan {} $2
+}
+
+has() { command -v "$1" >/dev/null; }
+
+configure
+sh_ascii-lines
+setkeyboardX
+GREP_OPTIONS
+#source /opt/asdf-vm/asdf.sh
+export PS4=$'${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
+export PS1='\e[32;1m\u \e[33;1m→ \e[36;1m\h \e[37;0m\w\n\e[35;1m�# \e[m'
+
+:<<'codeberg'
+#sudo kpartx -a -n /dev/mapper/vg-alfs
+#sudo kpartx -a -n /dev/mapper/vg-dell
+#sudo kpartx -a -n /dev/mapper/vg-slackware
+
+#cfdisk -z /dev/sdc # escolher type LVM
+#pvcreate /dev/sdc1
+#pvs
+
+#vgcreate data /dev/sdc1
+#vgs
+
+#lvcreate -l 100%FREE -n lv1 data
+#lvs
+
+#necessario formatar só o primeiro disco
+#mkfs.xfs /dev/mapper/data-lv1
+#mkfs.ext4 /dev/mapper/data-lv1
+
+#lvcreate --name mysql --size 25G lfs-lvm
+#lvcreate -L32G -n chili vg
+#lvcreate -L42G -n gentoo vg /dev/sda1
+#lvextend -L+20G /dev/vg/iso -r
+#lvextend -L+10G /dev/data/lv1 -r
+#lvextend /dev/data/lv1 /dev/sdc1
+#vgextend vg /dev/sdc1
+#mount /dev/mapper/data-lv1 /mnt
+#resize2fs /dev/mapper/data-lv1
+#xfs_growfs /mnt
+#
+#lvresize -L 100G /dev/data/lv1
+
+#A maneira mais simples de corrigir o GPT de backup é:
+# sgdisk -e /dev/sda
+
+#raid btrfs
+#mkfs.btrfs -d raid1 -m RAID1 /dev/sdx1 /dev/sdy1
+
+#lvreduce -L -2.5G -r /dev/vg00/vol_projects
+#lvextend -l +100%FREE -r /dev/vg00/vol_backups
+#lvextend -L +20G -r /dev/vg/alfs
+
+#resize btrfs
+#lvextend -L52G /dev/vg/base
+#btrfs filesystem resize +10G /mnt
+#btrfs filesystem resize -4g /mnt
+#btrfs filesystem resize 20g /mnt
+#btrfs filesystem resize max /mnt
+
+# Indo direto ao assunto mova todos os blocos em uso do disco problemático com o comando pvmove, assim (considerando que /dev/sdc1 é a partição do disco danificado que está no LVM):
+#pvmove -v /dev/sdc1 								# Note que este procedimento poderá levar muitos minutos, ou até algumas horas (um disco com 500GB de partição levou cerca de 1h e 30m).
+#vgreduce vg /dev/sdc1								# Em seguida remova o disco do grupo de volumes com o comando vgreduce (considerando que VirtualMachine é o grupo com o disco problemático):
+#pvremove /dev/sdc1									# Informe ao LVM que o disco em questão não faz parte mais do “sistema LVM”.
+#vgextend pool /dev/sdc1 --restoremissing   # LVM - Missing device reappeared but still missing
+#vgreduce --removemissing vg --force
+#sudo pacman -Fyx libcrypto.so.3
+
+#network
+#ip link show
+#1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1
+#    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+#2: enp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+#       link/ether ff:ff:ff:ff:ff:ff brd ff:ff:ff:f
+
+# cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-enp3s0
+# sed -i 's/eth0/enp3s0/' /etc/sv/dhcpcd-enp3s0/run
+# ln -s /etc/sv/dhcpcd-enp3s0 /var/service/
+
+# /etc/rc.local
+# ip link set dev eth0 up
+# ip addr add 192.168.1.2/24 brd + dev eth0
+# ip route add default via 192.168.1.1
+
+# xbps-install wpa_supplicant
+# xbps-install -S dhcpcd
+# wpa_passphrase <MYSSID> <passphrase> >> /etc/wpa_supplicant/wpa_supplicant-<device_name>.conf
+# ln -s /etc/sv/dhcpcd         /var/service/dhcpcd
+# ln -s /etc/sv/wpa_supplicant /var/service/wpa_supplicant
+# sv start dhcpcd
+# sv start wpa_supplicant
+# nmtui
+codeberg
+

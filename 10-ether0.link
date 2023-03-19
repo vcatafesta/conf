@@ -1,0 +1,7 @@
+[Match]
+# Change the MAC address as appropriate for your network device
+#MACAddress=F0:4D:A2:E5:FF:BE
+MACAddress=00:19:66:71:DF:14
+
+[Link]
+Name=ether0
