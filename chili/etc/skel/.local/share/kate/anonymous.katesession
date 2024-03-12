@@ -1,0 +1,85 @@
+[Kate Plugins]
+cmaketoolsplugin=false
+compilerexplorer=false
+eslintplugin=false
+externaltoolsplugin=false
+formatplugin=false
+katebacktracebrowserplugin=false
+katebuildplugin=false
+katecloseexceptplugin=false
+katecolorpickerplugin=true
+katectagsplugin=false
+katefilebrowserplugin=false
+katefiletreeplugin=false
+kategdbplugin=false
+kategitblameplugin=false
+katekonsoleplugin=true
+kateprojectplugin=false
+katereplicodeplugin=false
+katesearchplugin=false
+katesnippetsplugin=false
+katesqlplugin=false
+katesymbolviewerplugin=false
+katexmlcheckplugin=false
+katexmltoolsplugin=false
+keyboardmacrosplugin=false
+ktexteditorpreviewplugin=false
+latexcompletionplugin=false
+lspclientplugin=false
+rainbowparens=false
+tabswitcherplugin=false
+textfilterplugin=false
+
+[MainWindow0]
+1872x947 screen: Window-Maximized=true
+Active ViewSpace=0
+Kate-MDI-H-Splitter=0,1872,0
+Kate-MDI-Sidebar-0-Bar-0-TvList=
+Kate-MDI-Sidebar-0-LastSize=160
+Kate-MDI-Sidebar-0-SectSizes=0
+Kate-MDI-Sidebar-0-Splitter=805
+Kate-MDI-Sidebar-1-Bar-0-TvList=
+Kate-MDI-Sidebar-1-LastSize=160
+Kate-MDI-Sidebar-1-SectSizes=0
+Kate-MDI-Sidebar-1-Splitter=805
+Kate-MDI-Sidebar-2-Bar-0-TvList=
+Kate-MDI-Sidebar-2-LastSize=160
+Kate-MDI-Sidebar-2-SectSizes=0
+Kate-MDI-Sidebar-2-Splitter=1872
+Kate-MDI-Sidebar-3-Bar-0-TvList=output,diagnostics,kate_private_plugin_katekonsoleplugin
+Kate-MDI-Sidebar-3-LastSize=160
+Kate-MDI-Sidebar-3-SectSizes=0
+Kate-MDI-Sidebar-3-Splitter=1692
+Kate-MDI-Sidebar-Style=2
+Kate-MDI-Sidebar-Visible=true
+Kate-MDI-ToolView-diagnostics-Position=3
+Kate-MDI-ToolView-diagnostics-Show-Button-In-Sidebar=false
+Kate-MDI-ToolView-diagnostics-Visible=false
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Position=3
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Show-Button-In-Sidebar=false
+Kate-MDI-ToolView-kate_private_plugin_katekonsoleplugin-Visible=false
+Kate-MDI-ToolView-output-Position=3
+Kate-MDI-ToolView-output-Show-Button-In-Sidebar=false
+Kate-MDI-ToolView-output-Visible=false
+Kate-MDI-V-Splitter=0,805,0
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB1AAAAM7AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAIAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAGABoAGEAbQBiAHUAcgBnAGUAcgBCAGEAcgEAAAIy/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+
+[MainWindow0 Settings]
+1872x947 screen: Window-Maximized=true
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB1AAAAM7AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAIAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAGABoAGEAbQBiAHUAcgBnAGUAcgBCAGEAcgEAAAIy/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+WindowState=10
+
+[MainWindow0-Splitter 0]
+Children=MainWindow0-ViewSpace 0
+Orientation=1
+Sizes=1872
+
+[Open Documents]
+Count=4
+
+[Open MainWindows]
+Count=1

@@ -1,0 +1,6 @@
+repository=http://void.chililinux.com/voidlinux/current
+repository=http://void.chililinux.com/voidlinux/current/extras
+repository=http://void.chililinux.com/voidlinux/current/nonfree
+repository=http://void.chililinux.com/voidlinux/current/multilib
+repository=http://void.chililinux.com/voidlinux/current/multilib/nonfree
+

@@ -1,0 +1,18 @@
+##
+## Manjaro Linux Lista de espelho personalizada
+## Gerado em 2024-02-26 05:44
+##
+## Por favor, use 'pacman-mirrors -id' To reset custom mirrorlist
+## Por favor, use 'pacman-mirrors -c all' To reset custom mirrorlist
+## Para remover a execução da configuração personalizada 'pacman-mirrors -c all'
+##
+
+## Country : Brazil
+Server = https://manjaro.c3sl.ufpr.br/stable/$repo/$arch
+
+## Country : Brazil
+Server = https://linorg.usp.br/manjaro/stable/$repo/$arch
+
+## Country : Brazil
+Server = https://mirror.ufam.edu.br/manjaro/stable/$repo/$arch
+

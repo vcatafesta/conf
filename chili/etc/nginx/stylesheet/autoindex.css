@@ -1,0 +1,26 @@
+/* custom styles for autoindex */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+a {
+  color: #007bff;
+}
