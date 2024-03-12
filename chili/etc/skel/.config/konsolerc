@@ -1,0 +1,44 @@
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAgAAAAAAAAEWAAACKfwCAAAAAfsAAAAiAFEAdQBpAGMAawBDAG8AbQBtAGEAbgBkAHMARABvAGMAawAAAAAfAAACKQAAAboBAAAJAAAAAQAAAMoAAAJI/AIAAAAB+wAAABwAUwBTAEgATQBhAG4AYQBnAGUAcgBEAG8AYwBrAAAAAAAAAAJIAAABRAEAAAkAAAS2AAACNgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAAAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIDAAAAAP////8AAAAAAAAAAAAAABwAcwBlAHMAcwBpAG8AbgBUAG8AbwBsAGIAYQByAwAAAG4AAAIDAAAAAAAAAAA=
+Virtual1=Virtual1
+
+[Desktop Entry]
+DefaultProfile=Zsh.profile
+
+[Favorite Profiles]
+Favorites=
+
+[General]
+ConfigVersion=1
+
+[KFileDialog Settings]
+listViewIconSize=15
+
+[KonsoleWindow]
+AllowMenuAccelerators=true
+
+[MainWindow]
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAgAAAAAAAAEWAAACKfwCAAAAAfsAAAAiAFEAdQBpAGMAawBDAG8AbQBtAGEAbgBkAHMARABvAGMAawAAAAAfAAACKQAAAboBAAAJAAAAAQAAANYAAAI2/AIAAAAB+wAAABwAUwBTAEgATQBhAG4AYQBnAGUAcgBEAG8AYwBrAQAAAAAAAAI2AAABRAEAAAkAAAPfAAACNgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAAAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIDAAAAAP////8AAAAAAAAAAAAAABwAcwBlAHMAcwBpAG8AbgBUAG8AbwBsAGIAYQByAwAAAG4AAAIDAAAAAAAAAAA=
+StatusBar=Disabled
+ToolBarsMovable=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[MainWindow][Toolbar sessionToolbar]
+ToolButtonStyle=IconOnly
+
+[TabBar]
+NewTabButton=true
+ShowQuickButtons=true
+TabBarVisibility=AlwaysShowTabBar
+
+[Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[Toolbar sessionToolbar]
+ToolButtonStyle=IconOnly
+
+[UiSettings]
+ColorScheme=

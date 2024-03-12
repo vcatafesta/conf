@@ -1,0 +1,7 @@
+#######################################################
+
+# Direct Host From Sweden (Europe)
+Server = https://mirror.accum.se/mirror/xerolinux.xyz/$repo/$arch
+
+# Direct Host From South Korea
+Server = https://mirror.funami.tech/xerolinux/$repo/$arch

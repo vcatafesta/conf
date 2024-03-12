@@ -1,0 +1,16 @@
+#######################################
+## Wordpress ids: 30000000           ##
+#######################################
+
+MainRule id:30000000 "s:$UWA:8" "str:system.multicall" "mz:$URL:/xmlrpc.php|BODY" "msg:Wordpress XMLRPC possible Password Brute Force";
+MainRule id:30000001 "s:$UWA:8" "str:system.listmethods" "mz:$URL:/xmlrpc.php|BODY" "msg:WordPress XMLRPC Enumeration system.listMethods";
+MainRule id:30000002 "s:$UWA:8" "str:system.getcapabilities" "mz:$URL:/xmlrpc.php|BODY" "msg:WordPress XMLRPC Enumeration system.getCapabilities";
+MainRule id:30000003 "s:$UWA:8" "str:/w3tc/dbcache" "mz:URL" "msg:WordPress TotalCache-DBCache-Access";
+MainRule id:30000004 "s:$UWA:8" "str:/uploadify/uploadify.php" "mz:URL" "msg:WordPress Uploadify-Access";
+MainRule id:30000005 "s:$UWA:8" "str:/wp-content/plugins/mm-forms-community/upload/temp/" "mz:URL" "msg:Access To mm-forms-community upload dir";
+MainRule id:30000006 "s:$UWA:8" "str:wp-config.php" "mz:BODY|ARGS|URL" "msg:WordPress access to wp-config.php";
+
+# block malicious access ALFA_DATA|alfacgiapi|cgialfa path
+MainRule id:30000007 "s:$UWA:8" "str:ALFA_DATA" "mz:URL" "msg:WordPress malicious access to ALFA_DATA path";
+MainRule id:30000008 "s:$UWA:8" "str:alfacgiapi" "mz:URL" "msg:WordPress malicious access to alfacgiapi path";
+MainRule id:30000009 "s:$UWA:8" "str:cgialfa" "mz:URL" "msg:WordPress malicious access to cgialfa path";

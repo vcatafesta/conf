@@ -1,0 +1,25 @@
+DEEPIN_GFXMODE_DETECT=2
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+GRUB_TIMEOUT=5
+#GRUB_TIMEOUT_STYLE=hidden
+GRUB_DISTRIBUTOR=`/usr/bin/lsb_release -d | cut -f2 2>/dev/null || echo Chili`
+GRUB_CMDLINE_LINUX_DEFAULT="transparent_hugepage=never quiet splash apparmor=1 security=apparmor udev.log_priority=3 libata.noacpi=1"
+GRUB_CMDLINE_LINUX=""
+GRUB_GFXMODE=2560x1080,1920x1080,1680x1050,1280x1024,1280x960,1152x864,1024x768,800x600,auto
+GRUB_PRELOAD_MODULES="part_gpt part_msdos lvm"
+GRUB_TERMINAL_INPUT=console
+#GRUB_TERMINAL_OUTPUT=console
+#GRUB_GFXPAYLOAD_LINUX=text
+GRUB_GFXPAYLOAD_LINUX=keep
+#GRUB_BACKGROUND="/usr/share/grub/background.png"
+GRUB_THEME=/boot/grub/themes/chili/theme.txt
+#GRUB_DISABLE_LINUX_UUID=true
+#GRUB_ENABLE_CRYPTODISK=y
+GRUB_DISABLE_RECOVERY=false
+GRUB_DISABLE_OS_PROBER=true
+GRUB_DISABLE_SUBMENU=true
+#GRUB_COLOR_NORMAL="light-gray/black"
+#GRUB_COLOR_HIGHLIGHT="green/black"
+GRUB_INIT_TUNE="480 440 1"
+
