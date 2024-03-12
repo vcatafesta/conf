@@ -1,0 +1,1 @@
+../sites-available/void.chililinux.com
