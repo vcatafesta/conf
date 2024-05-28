@@ -1,0 +1,116 @@
+
+## Here is an example for C/C++.
+
+syntax c "\.([ch](pp|xx)?|prg|PRG|C|cc|c\+\+|cu|H|hh|ii?)$"
+header "-\*-.*\<C(\+\+)?((;|\s).*)?-\*-"
+magic "^(PRG|prg|C|C\+\+) (source|program)"
+comment "//"
+
+## Default
+color brightwhite "^.+$"
+
+# Constants.
+color brightred "\<[A-Z_][0-9A-Z_]+\>"
+# Labels.
+color brightmagenta "^[[:space:]]*[A-Z_a-z]+:[[:space:]]*$"
+
+color green "\<(float|double|bool|char|int|short|long|sizeof|enum|void|auto|static|const|struct|union|typedef|extern|(un)?signed|inline)\>"
+color green "\<([[:lower:]][[:lower:]_]*|(u_?)?int(8|16|32|64))_t\>"
+color green "\<(class|endclass|namespace|template|public|protected|private|typename|this|friend|virtual|override|using|mutable|volatile|register|explicit)\>"
+color green "\<(try|throw|catch|operator|new|delete)\>"
+color brightcyan "\<(for|if|IF|elif|ELIF|fi|FI|ENDIF|endif|enddo|else|ELSE|ELSEIF|elseif|while|do|case|endcase|default|switch)\>"
+color magenta "\<(goto|continue|break|return)\>"
+color brightyellow "\<(def|fn|endfn|endef|method)\>"
+color brightmagenta "'([^'\]|(\\["'abfnrtv\\]))'" "'\\(([0-3]?[0-7]{1,2}))'" "'\\x[0-9A-Fa-f]{1,2}'"
+
+# GCC builtins.
+color cyan "__attribute__[[:space:]]*\(\([^)]*\)\)" "__(aligned|asm|builtin|hidden|inline|packed|restrict|section|typeof|weak)__"
+
+# Strings.  In general you will want your strings and comments to come last,
+# because highlighting rules are applied in the order they are read in.
+color brightyellow ""([^"]|\\")*"" "#[[:space:]]*include[[:space:]]+<[^[:blank:]=]*>"
+# Multiline strings.  This regex is VERY resource intensive,
+# and sometimes colours things that shouldn't be coloured.
+###color brightyellow start=""(\\.|[^"])*\\[[:space:]]*$" end="^(\\.|[^"])*""
+
+# Preprocessor directives.
+color brightcyan start="^[[:space:]]*#[[:space:]]*(if(n?def)?|elif|warning|error|pragma)\>" end="(\`|[^\\])$"
+color brightcyan "^[[:space:]]*#[[:space:]]*(define|translate|else|endif|include(_next)?|undef)\>"
+
+# Comments.
+color brightblue "//.*"
+color brightblue start="/\*" end="\*/"
+
+# Reminders.
+color brightwhite,yellow "\<(FIXME|_TODO|XXX)\>"
+
+# Trailing whitespace.
+#color ,green "[[:space:]]+$"
+color ,green "[[:space:]]+$"
+
+## Default
+#color white "^.+$"
+
+## Decimal, cotal and hexadecimal numbers
+color yellow "\<[-+]?([1-9][0-9]*|0[0-7]*|0x[0-9a-fA-F]+)([uU][lL]?|[lL][uU]?)?\>"
+
+## Floating point number with at least one digit before decimal point
+color yellow "\<[-+]?([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([EePp][+-]?[0-9]+)?[fFlL]?"
+color yellow "\<[-+]?([0-9]+[EePp][+-]?[0-9]+)[fFlL]?"
+
+## Keywords
+color magenta "\<(goto|continue|break|return|RETURN)\>"
+color green "\<(break|case|catch|continue|default|delete|do|finally)\>"
+color green "\<(for|function|in|instanceof|new|null|return|switch)\>"
+color green "\<(switch|this|throw|try|typeof|undefined|var|void|while|with)\>"
+color green "\<(import|as|from|export)\>"
+color green "\<(const|let|class|endclass|extends|of|get|set|await|async|yield)\>"
+color brightyellow "\<(for|enddo|while|do|case|endcase|default|switch)\>"
+color brightyellow "\<(try|throw|catch|operator|new|delete)\>"
+color brightred "\<(endef|method)\>"
+
+
+## Type specifiers
+color green "\<(Array|Boolean|Date|Enumerator|Error|Function|Math|method|METHOD|var|VAR|EXPORTED|Local|LOCAL|PUBLI|STATI|STATIC|PUBLIC|METHOD)\>"
+color green "\<(WeakMap|Map|WeakSet|Set|Symbol|Promise)\>"
+color green "\<(Number|Object|RegExp|String)\>"
+color green "\<(true|false)\>"
+
+## String
+color brightyellow "L?\"(\\"|[^"])*\""
+color brightyellow "L?'(\'|[^'])*'"
+color brightcyan "L?`(\`|[^`])*`"
+color brightwhite,blue start="\$\{" end="\}"
+
+## Trailing spaces
+#color , "[[:space:]]+$"
+
+## Escapes
+color red "\\[0-7][0-7]?[0-7]?|\\x[0-9a-fA-F]+|\\[bfnrt'"\?\\]"
+
+## Comments
+color brightblue start="^\s*/\*" end="\*/"
+color brightblue "^\s*//.*$"
+
+#funcoes
+color brightyellow 	"[A-Za-z_][A-Za-z0-9_]*[[:space:]]*[()]"
+
+#commands
+color brightblue "\<(append|cap|close|complex|copy|delete|imag|len)\>"
+color brightblue 	"\<(make|new|panic|print|println|protect|real|recover)\>"
+color green     	"\<(u?int(8|16|32|64)?|float(32|64)|complex(64|128))\>"
+color green     	"\<(uintptr|byte|rune|string|interface|bool|map|chan|error)\>"
+color cyan  		"\<(package|import|const|var|type|struct|func|go|defer|nil|iota)\>"
+color cyan  		"\<(for|range|case|default|switch|return)\>"
+color brightred   "\<(go|goto|break|continue)\>"
+color brightcyan 	"\<(true|false)\>"
+color red 			"[-+/*=<>!~%&|^]|:="
+color brightmagenta  	   "\<([0-9]+|0x[0-9a-fA-F]*)\>|'.'"
+color yellow 		""(\\.|[^"])*"|'(\\.|[^'])*'"
+color magenta   	"\\[abfnrtv'\"\\]"
+color magenta   	"\\([0-7]{3}|x[A-Fa-f0-9]{2}|u[A-Fa-f0-9]{4}|U[A-Fa-f0-9]{8})"
+color yellow   	"`[^`]*`"
+color brightblack "(^|[[:space:]])//.*"
+color brightblack start="^\s*/\*" end="\*/"
+#color ,green 		"[[:space:]]+$"
+#color ,red 		"	+ +| +	+"

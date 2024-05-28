@@ -1,0 +1,85 @@
+## Here is an example for Bourne shell scripts.
+##
+#syntax "SH" "\.c[o]?nf$" ".+$" "\.sh.htm$" "\.sh$" "\.bashrc" "bashrc" "\.bash_aliases" "bash_aliases" "\.bash_functions" "bash_functions" "\.bash_profile" "bash_profile" "revise\..+$"
+syntax "sh.htm" "\.sh\.htm$"
+header "^#!.*/(env +)?(ba|da|a)?sh( |$)"
+magic "(POSIX|Bourne-Again) shell script.*text"
+comment "#"
+linter dash -n
+
+## keywords:
+color green "\<(case|do|done|elif|else|esac|fi|for|function|if|in|select|then|time|until|while)\>"
+color green "(\{|\}|\(|\)|\;|\]|\[|`|\\|\$|<|>|!|=|&|\|)"
+color green "-[Ldefgruwx]\>"
+color green "-(eq|ne|gt|lt|ge|le|s|n|z)\>"
+## builtins:
+color brightblue "\<(alias|bg|bind|break|builtin|caller|cd|command|compgen|complete|compopt|continue|declare|dirs|disown|echo|enable|eval|exec|exit|export|false|fc|fg|getopts|hash|help|history|jobs|kill|let|local|logout|mapfile|popd|printf|pushd|pwd|read|readarray|readonly|return|set|shift|shopt|source|suspend|test|times|trap|true|type|typeset|ulimit|umask|unalias|unset|wait)\>"
+## not buitins:
+## cat|chmod|chown|cp|env|grep|install|ln|make|mkdir|mv|rm|sed|tar|touch
+icolor brightgreen "^\s+[0-9A-Z_]+\s+\(\)"
+icolor brightred "\$\{?[0-9A-Z_!@#$*?-]+\}?"
+color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
+color cyan "(^|[[:space:]])#.*$"
+color ,green "[[:space:]]+$"
+
+magic "HTML document"
+#comment "<!--|-->" "#"
+comment "#"
+
+## Emphasis tags
+color brightwhite start="<([biu]|em|strong)[^>]*>" end="</([biu]|em|strong)>"
+
+## Tags
+color cyan start="<" end=">"
+
+## Attributes
+color brightblue "[[:space:]](abbr|accept(-charset)?|accesskey|action|[av]?link|alt|archive|axis|background|(bg)?color|border)="
+color brightblue "[[:space:]](cell(padding|spacing)|char(off|set)?|checked|cite|class(id)?|compact|code(base|tag)?|cols(pan)?)="
+color brightblue "[[:space:]](content(editable)?|contextmenu|coords|data|datetime|declare|defer|dir|enctype)="
+color brightblue "[[:space:]](for|frame(border)?|headers|height|hidden|href(lang)?|hspace|http-equiv|id|ismap)="
+color brightblue "[[:space:]](label|lang|longdesc|margin(height|width)|maxlength|media|method|multiple)="
+color brightblue "[[:space:]](name|nohref|noresize|noshade|object|on(click|focus|load|mouseover|keypress)|profile|readonly|rel|rev)="
+color brightblue "[[:space:]](rows(pan)?|rules|scheme|scope|scrolling|shape|size|span|src|standby|start|style|summary|pattern)="
+color brightblue "[[:space:]](tabindex|target|text|title|type|usemap|v?align|value(type)?|vspace|width|xmlns|xml:space)="
+color brightblue "[[:space:]](required|disabled|selected)[[:space:]=>]"
+
+## Strings
+#color yellow ""(\\.|[^"])*""
+color brightyellow ""(\\.|[^"])*""
+
+## Named character references and entities
+color red "&#?[[:alnum:]]*;"
+
+## Template strings (not in the HTML spec, but very commonly used)
+color magenta "\{[^\}]*\}\}?"
+color brightgreen "[[:space:]]((end)?if|(end)?for|in|not|(end)?block)[[:space:]]"
+
+## Comments
+color green start="<!--" end="-->"
+
+## Trailing spaces
+#color ,green "[[:space:]]+$"
+color ,red "[[:space:]]+$"
+
+## Reminders
+color brightwhite,yellow "(FIXME|TODO|XXX)"
+icolor brightred "\$\{?[0-9A-Z_!@#$*?-]+\}?"
+
+## keywords:
+color green "\<(case|do|done|elif|else|esac|fi|for|function|if|in|select|then|time|until|while)\>"
+color green "(\{|\}|\(|\)|\;|\]|\[|`|\\|\$|<|>|!|=|&|\|)"
+color green "-[Ldefgruwx]\>"
+color green "-(eq|ne|gt|lt|ge|le|s|n|z)\>"
+## builtins:
+color brightblue "\<(alias|bg|bind|break|builtin|caller|cd|command|compgen|complete|compopt|continue|declare|dirs|disown|echo|enable|eval|exec|exit|export|false|fc|fg|getopts|hash|help|history|jobs|kill|let|local|logout|mapfile|popd|printf|pushd|pwd|read|readarray|readonly|return|set|shift|shopt|source|suspend|test|times|trap|true|type|typeset|ulimit|umask|unalias|unset|wait)\>"
+## not buitins:
+## cat|chmod|chown|cp|env|grep|install|ln|make|mkdir|mv|rm|sed|tar|touch
+color lightred "\<(cat|chmod|chown|cp|env|grep|install|ln|make|mkdir|mv|rm|sed|tar|touch|grep|sed|pgrep|test|pkexec|sleep|findmnt|modinfo|lsmod|cut)\>"
+icolor brightgreen "^\s+[0-9A-Z_]+\s+\(\)"
+icolor brightred "\$\{?[0-9A-Z_!@#$*?-]+\}?"
+color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
+color cyan "(^|[[:space:]])#.*$"
+color ,green "[[:space:]]+$"
+color brightwhite,yellow "sh_.*[[:space:]]"
+color white,blue "<<.EOF"
+color white,blue "EOF"
