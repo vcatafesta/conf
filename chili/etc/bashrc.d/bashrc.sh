@@ -30,8 +30,6 @@ export blue="\033[01;34m"
 export pink="\033[01;35m"
 export cyan="\033[01;36m"
 export reset="\033[0m"
-alias ls='ls -lha --color=auto'
-alias dir='ls -lha --color=auto'
 
 die() {
 	local msg="$1"
@@ -83,18 +81,32 @@ msg_run() {
 export -f msg_run
 
 msg_info() {
-	local msg="$1"
-	msg="$(sed 's/<[^>]*>//g' <<<"$msg")" # Remove as tags HTML
-	echo -e "BP=>${yellow}info   : ${cyan}${msg}${reset}"
+  local msg="$1"
+  local caller_function="${FUNCNAME[1]}"      # Nome da função que chamou a função atual
+  local caller_line="${BASH_LINENO[1]}"       # Número da linha que chamou a função atual
+  msg="$(sed 's/<[^>]*>//g' <<<"$msg")"       # Remove as tags HTML
+  #echo -e "${blue}==>${green}[${caller_function}:${caller_line}]=>${yellow}info   : ${cyan}${msg}${reset}"
+  echo -e "${caller_function}=>${yellow}info   : ${cyan}${msg}${reset}"
 }
 export -f msg_info
 
 msg_warning() {
 	local msg="$1"
+  local caller_function="${FUNCNAME[1]}"      # Nome da função que chamou a função atual
+  local caller_line="${BASH_LINENO[1]}"       # Número da linha que chamou a função atual
 	msg="$(sed 's/<[^>]*>//g' <<<"$msg")" # Remove as tags HTML
-	echo -e "BP=>${red}warning: ${orange}${msg}${reset}"
+  echo -e "${caller_function}=>${red}warning: ${orange}${msg}${reset}"
 }
 export -f msg_warning
+
+msg_warn() {
+	local msg="$1"
+  local caller_function="${FUNCNAME[1]}"      # Nome da função que chamou a função atual
+  local caller_line="${BASH_LINENO[1]}"       # Número da linha que chamou a função atual
+	msg="$(sed 's/<[^>]*>//g' <<<"$msg")" # Remove as tags HTML
+  echo -e "${caller_function}=>${red}warning: ${orange}${msg}${reset}"
+}
+export -f msg_warn
 
 replicate() {
 	local char=${1:-'#'}
@@ -1214,7 +1226,7 @@ EOF
 
 chili-qemufilerun() { chili-qemurunfile $@; }
 filerun() { chili-qemurunfile $@; }
-fr() { chili-qemurunfile "$@"; }
+#fr() { chili-qemurunfile "$@"; }
 cr() { chili-runimage "$@"; }
 fru() { chili-qemurunuefi $@; }
 frr() { chili-qemurunimg $@; }
