@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+[[ -n "$ETC_BASHRC" ]] && return
+export ETC_BASHRC=1
+
 if [ -d /etc/bashrc.d/ ]; then
     for f in /etc/bashrc.d/*.sh; do
         [ -r "$f" ] && . "$f"
