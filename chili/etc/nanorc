@@ -66,7 +66,7 @@ set constantshow
 set historylog
 
 ## Display a "scrollbar" on the righthand side of the edit window.
-# set indicator
+#set indicator
 
 ## Scroll the buffer contents per half-screen instead of per line.
 # set jumpyscrolling
@@ -150,14 +150,14 @@ set positionlog
 ## Put the cursor on the highlighted item in the file browser, and
 ## show the cursor in the help viewer; useful for people who use a
 ## braille display and people with poor vision.
-# set showcursor
+set showcursor
 
 ## Make the Home key smarter: when Home is pressed anywhere but at the
 ## very beginning of non-whitespace characters on a line, the cursor
 ## will jump to that beginning (either forwards or backwards).  If the
 ## cursor is already at that position, it will jump to the true start
 ## of the line (the left edge).
-# set smarthome
+#set smarthome
 
 ## Spread overlong lines over multiple screen lines.
 # set softwrap
@@ -171,16 +171,17 @@ set positionlog
 # set stateflags
 
 ## Use this tab size instead of the default; it must be greater than 0.
-set tabsize 3
+set tabsize 2
+#set tabsize 4
 
 ## Convert each typed tab to the fitting number of spaces.
-# set tabstospaces
+set tabstospaces
 
 ## Snip whitespace at the end of lines when justifying or hard-wrapping.
 # set trimblanks
 
 ## Save files by default in Unix format (also when they were DOS or Mac).
-# set unix
+set unix
 
 ## The two single-column characters used to display the first characters
 ## of tabs and spaces.  187 in ISO 8859-1 (0000BB in Unicode) and 183 in
@@ -205,7 +206,6 @@ set tabsize 3
 
 ## Hide the bars plus help lines and use the whole terminal as edit area.
 # set zero
-
 
 ## Paint the interface elements of nano.  These are examples; there are
 ## no colors by default, except for errorcolor and spotlightcolor.
@@ -251,15 +251,24 @@ set numbercolor magenta
 set keycolor brightmagenta
 set functioncolor magenta
 
-
-
 ## === Syntax coloring ===
 ## For all details, see 'man nanorc', section SYNTAX HIGHLIGHTING.
 
 ## To include most of the existing syntax definitions, you can do:
 ## Or you can select just the ones you need.  For example:
 include "/usr/share/nano/*.nanorc"
-include "/usr/share/nano-syntax-highlighting/*.nanorc"
+#include "/usr/share/nano-syntax-highlighting/*.nanorc"
+#include "/usr/share/nano-syntax-highlighting/custom.nanorc"
+include "/usr/share/nano/go.nanorc"
+include "/usr/share/nano/js.nanorc"
+include "/usr/share/nano/css.nanorc"
+#include "/usr/share/nano/sh.nanorc"
+#include "/usr/share/nano/custom.nanorc"
+include "/usr/share/nano/prg.nanorc"
+include "/usr/share/nano/asm.nanorc"
+include "/usr/share/nano/lua.nanorc"
+include "/usr/share/nano/yaml.nanorc"
+include "/usr/share/nano/sh.nanorc"
 
 ## In /usr/share/nano/extra/ you can find some syntaxes that are
 ## specific for certain distros or for some less common languages.
@@ -267,11 +276,10 @@ include "/usr/share/nano-syntax-highlighting/*.nanorc"
 
 ## If <Tab> should always produce four spaces when editing a Python file,
 ## independent of the settings of 'tabsize' and 'tabstospaces':
-# extendsyntax python tabgives "    "
+extendsyntax python tabgives "     "
 
 ## If <Tab> should always produce an actual TAB when editing a Makefile:
-# extendsyntax makefile tabgives "	"
-
+extendsyntax makefile tabgives "	"
 
 ## === Key bindings ===
 ## For all details, see 'man nanorc', section REBINDING KEYS.
@@ -302,11 +310,11 @@ include "/usr/share/nano-syntax-highlighting/*.nanorc"
 ## For quickly uppercasing or lowercasing the word under the cursor.
 ## (These effectively do a Ctrl+Right followed by a Shift+Ctrl+Left,
 ## and then pipe the selected text through a sed command.)
-# bind Sh-M-U "Oc[1;6D|sed 's/.*/\U&/'" main
-# bind Sh-M-L "Oc[1;6D|sed 's/.*/\L&/'" main
+# bind Sh-M-U "Oc[1;6D|sed 's/.*/\U&/'" main
+# bind Sh-M-L "Oc[1;6D|sed 's/.*/\L&/'" main
 
 ## For copying a marked region to the system clipboard:
-# bind Sh-M-T "|xsel -ibu" main
+#bind Sh-M-T "|xsel -ibu" main
 
 ## If you would like nano to have keybindings that are more "usual",
 ## such as ^O for Open, ^F for Find, ^H for Help, and ^Q for Quit,
@@ -330,7 +338,6 @@ bind ^Y cut all
 bind ^C copy main
 bind ^V paste all
 #bind ^P curpos main
-#bind ^P curpos main
 #bind ^A mark main
 #unbind ^K main
 #unbind ^U all
@@ -345,3 +352,18 @@ bind ^G gotoline main
 #bind M-U undo main
 #bind M-R redo main
 #bind ^U undo main
+unbind ^/ all
+bind ^/ comment main
+#bind "^[[3;5~" cut
+#bind ^[[3;5~ cutwordleft
+
+#TESTES
+#bind ^/ "sed 's/^.//'" all
+bind ^F "function sh_func_name()" all
+#bind ^/ "^[Oc^[[1;6D^T|sed 's/^.//'" main
+bind ^D "^[Oc^[[1;6D^T|sed 's/^[ \t]*//'" main
+
+#Lembre-se de que a representação do caractere "Delete" como ^[[3;5~ pode variar dependendo do terminal que você está usando.
+#Se essa representação não funcionar, você pode tentar descobrir a sequência correta de escape para o "Delete" executando o seguinte comando:
+#cat -v
+# Define uma macro para inserir a estrutura de função shell
